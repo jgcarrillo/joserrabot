@@ -9,7 +9,7 @@
     "build": "netlify-lambda build functions",
     "tsc": "tsc",
     "clean": "rimraf build",
-    "lint": "eslint --fix functions/bot/** --ext .js,.ts,.tsx",
+    "lint": "eslint --fix functions/bot/**/* --ext .ts,.json",
     "format": "prettier --write functions/bot/**"
   },
   "keywords": [],
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@types/node": "^18.8.4",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
