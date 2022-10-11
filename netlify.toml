@@ -1,0 +1,9 @@
+[build]
+  functions = "functions"
+  command = "netlify-lambda install && mkdir ./build"
+[template.environment]
+  BOT_TOKEN = "Telegram bot token here"
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/bot/:splat"
+  status = 200

@@ -1,0 +1,39 @@
+{
+  "name": "joserrabot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon/build/bot.js",
+    "dev": "nodemon functions/bot/bot.ts",
+    "build": "netlify-lambda build functions",
+    "tsc": "tsc",
+    "clean": "rimraf build",
+    "lint": "eslint --fix functions/bot/** --ext .js,.ts,.tsx",
+    "format": "prettier --write functions/bot/**"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.2",
+    "dotenv": "^16.0.3",
+    "netlify-lambda": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "telegraf": "^4.10.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  }
+}
