@@ -11,14 +11,14 @@ I'm Joserrabot
 Send me some links to store them`;
 
 // Basic commands
-bot.start((ctx) => {
-  ctx.reply(welcomeMessage);
+bot.start(async (ctx) => {
+  await ctx.reply(welcomeMessage);
 });
-bot.help((ctx) => {
-  ctx.reply('This is the help');
+bot.help(async (ctx) => {
+  await ctx.reply('This is the help');
 });
 
-bot.launch();
+bot.launch().catch((err) => console.log(err));
 
 /*
 exports.handler = async (event) => {
