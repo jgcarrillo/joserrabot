@@ -3,7 +3,12 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["standard-with-typescript", "eslint-config-prettier"],
+  "extends": [
+    "standard-with-typescript",
+    "eslint-config-prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

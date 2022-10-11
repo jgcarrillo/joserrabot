@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon/build/bot.js",
+    "start": "nodemon build/bot.js",
     "dev": "nodemon functions/bot/bot.ts",
     "build": "netlify-lambda build functions",
     "tsc": "tsc",
     "clean": "rimraf build",
-    "lint": "eslint --fix functions/bot/**/* --ext .ts,.json",
-    "format": "prettier --write functions/bot/**/*"
+    "lint": "eslint --fix functions/bot --ext .ts,.json",
+    "format": "prettier --write functions/bot"
   },
   "keywords": [],
   "author": "",
