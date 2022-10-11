@@ -1,21 +1,19 @@
 import { Telegraf } from 'telegraf';
 import * as dotenv from 'dotenv';
 
+import { actionStart, actionHelp } from './actions/actions';
+
 dotenv.config();
 
 const token: string = process.env.BOT_TOKEN ?? '';
 const bot = new Telegraf(token);
 
-const welcomeMessage = `Welcome!
-I'm Joserrabot
-Send me some links to store them`;
-
 // Basic commands
-bot.start(async (ctx) => {
-  await ctx.reply(welcomeMessage);
-});
-bot.help(async (ctx) => {
-  await ctx.reply('This is the help');
+bot.start(async (ctx) => await actionStart(ctx, bot).catch((err) => console.log(err)));
+bot.help(async (ctx) => await actionHelp(ctx, bot).catch((err) => console.log(err)));
+
+bot.on('sticker', async (ctx) => {
+  await ctx.reply('💪');
 });
 
 bot.launch().catch((err) => console.log(err));
