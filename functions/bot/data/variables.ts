@@ -20,7 +20,7 @@ más importantes 🆘:
 
 *Comandos avanzados*
 /autobus - Horarios de autobuses
-/tiempo - Conoce el tiempo el Murcia
+/tiempo - Conoce el tiempo en Murcia
 /birth - Cumpleaños de amigos
 
 *Comandos de gestión*

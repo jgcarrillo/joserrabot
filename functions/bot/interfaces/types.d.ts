@@ -1,4 +1,4 @@
-export interface APIResponse {
+export interface WeatherResponse {
   weather: Weather[];
   main: Main;
 }
