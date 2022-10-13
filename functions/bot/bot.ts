@@ -2,7 +2,7 @@ import { Telegraf } from 'telegraf';
 import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
-import { getInvitationLink } from './commands/commands';
+import { getBirthdays, getInvitationLink } from './commands/commands';
 import WeatherService from './services/WeatherService';
 
 dotenv.config();
@@ -44,6 +44,10 @@ bot.command('tiempo', async (ctx) => {
   ctx
     .reply(`La temperatura en ${zone} es de: ${data.main.temp} °C. El tiempo está ${icon}`)
     .catch((err) => console.log(err));
+});
+
+bot.command('birth', async (ctx) => {
+  await getBirthdays(ctx, bot);
 });
 
 bot.launch().catch((err) => console.log(err));

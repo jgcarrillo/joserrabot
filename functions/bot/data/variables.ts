@@ -25,3 +25,16 @@ más importantes 🆘:
 
 *Comandos de gestión*
 /invite - Genera un link de invitación`;
+
+export const birthdaysMessage = `
+*🎂 cumpleaños 🎂*
+
+*Joserra* - 30 de octubre de 1991
+*Jorge* - 26 de abril de 1991
+*Pedro* -
+*Juan Luis* -
+*Manu* -
+*Camacho* -
+*Fran* -
+*Serrano* -
+*Toni* - `;
