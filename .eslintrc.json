@@ -18,6 +18,7 @@
     "extraFileExtensions": [".json"]
   },
   "rules": {
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }
