@@ -7,7 +7,6 @@ export const actionStart = async (
   bot: Telegraf<Context<Update>>
 ): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { chat: number };
-  console.log(context.chat.id);
   return await bot.telegram.sendMessage(context.chat.id, welcomeMessage, {
     parse_mode: 'Markdown',
   });
