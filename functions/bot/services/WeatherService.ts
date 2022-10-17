@@ -1,6 +1,27 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { WeatherResponse } from '../interfaces/types';
+interface ApiWeatherResponse {
+  weather: Weather[];
+  main: Main;
+}
+
+interface Main {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+  sea_level: number;
+  grnd_level: number;
+}
+
+interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
 
 export default class WeatherService {
   private readonly token: string;
@@ -13,7 +34,7 @@ export default class WeatherService {
     this.url = `https://api.openweathermap.org/data/2.5/weather?q=${this.zone}&APPID=${this.token}&units=metric`;
   }
 
-  async getWeather(): Promise<AxiosResponse<WeatherResponse>> {
+  async getWeather(): Promise<AxiosResponse<ApiWeatherResponse>> {
     return await axios.get(this.url);
   }
 

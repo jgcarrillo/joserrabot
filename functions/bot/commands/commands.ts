@@ -5,6 +5,10 @@ import { birthdaysMessage } from '../data/variables';
 
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
+
+  if (context.message.chat.type === 'private')
+    return await ctx.reply('ℹ Necesitas estar un grupo para crear un link de invitación ℹ');
+
   const res = await ctx.telegram.createChatInviteLink(context.message.chat.id);
 
   return await ctx.reply(`Aquí tienes tu invitación: ${res.invite_link}`);
