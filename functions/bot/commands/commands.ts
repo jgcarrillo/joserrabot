@@ -5,6 +5,11 @@ import { birthdaysMessage } from '../data/variables';
 import BusService from '../services/BusService';
 import WeatherService from '../services/WeatherService';
 
+/**
+ * This function generates an invitation link to the group
+ * @param {Context} ctx - The context of the message
+ * @returns {Promise<Message.TextMessage>} - The bot response with the invitation link
+ */
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
 
@@ -16,6 +21,12 @@ export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessa
   return await ctx.reply(`Aquí tienes tu invitación: ${res.invite_link}`);
 };
 
+/**
+ * This function returns a list of birthdays
+ * @param {Context} ctx - The context of the message
+ * @param {Telegraf<Context<Update>>} bot - The bot instance
+ * @returns {Promise<Message.TextMessage>} - The bot response with the birthdays list
+ */
 export const getBirthdays = async (
   ctx: Context,
   bot: Telegraf<Context<Update>>
@@ -26,6 +37,11 @@ export const getBirthdays = async (
   });
 };
 
+/**
+ * This function returns the current weather for the city passed as argument
+ * @param {Context} ctx - The context of the message
+ * @returns {Promise<Message.TextMessage | undefined>} - The bot response with the weather
+ */
 export const getWeather = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
   const weatherService = new WeatherService('Murcia');
 
@@ -54,6 +70,11 @@ export const getWeather = async (ctx: Context): Promise<Message.TextMessage | un
   }
 };
 
+/**
+ * This function returns the bus stations
+ * @param {Context} ctx - The context of the message
+ * @returns {Promise<Message.TextMessage | undefined>} - The bot response with the bus stations
+ */
 export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
   const busService = new BusService(undefined, undefined, '44.A.1');
 

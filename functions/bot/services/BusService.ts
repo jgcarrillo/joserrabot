@@ -53,6 +53,12 @@ export default class BusService {
   private readonly latitude: number = 0;
   private readonly line: string = '';
 
+  /**
+   *
+   * @param {number} latitude - The latitude of the station
+   * @param {number} longitude - The longitude of the station
+   * @param {string} line - The number (id) of the station
+   */
   constructor(latitude?: number, longitude?: number, line?: string) {
     if (latitude !== undefined && longitude !== undefined) {
       this.latitude = latitude;
@@ -68,22 +74,42 @@ export default class BusService {
     }
   }
 
+  /**
+   * This function returns the current longitude
+   * @returns {number} - The current longitude
+   */
   getLongitude(): number {
     return this.longitude;
   }
 
+  /**
+   * This function returns the current latitude
+   * @returns {number} - The current latitude
+   */
   getLatitude(): number {
     return this.latitude;
   }
 
+  /**
+   * This function returns the current line
+   * @returns {string} - The current line
+   */
   getLine(): string {
     return this.line;
   }
 
+  /**
+   * This function returns the current URL
+   * @returns {string} - The current URL
+   */
   getURL(): string {
     return this.URI;
   }
 
+  /**
+   * This function returns the data of the bus station for the current line
+   * @returns {Promise<AxiosResponse<ApiBusLineResponse>>} - The data of the current line
+   */
   async getDataByLine(): Promise<AxiosResponse<ApiBusLineResponse>> {
     return await axios.get(this.URI);
   }
