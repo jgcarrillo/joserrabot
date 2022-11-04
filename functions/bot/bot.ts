@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
 import { getBirthdays, getBus, getInvitationLink, getWeather } from './commands/commands';
-import { getUserGreeting } from './on';
+import { getUserGreeting } from './on/on';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ bot.help(async (ctx) => await actionHelp(ctx, bot).catch((err) => console.log(er
 /*******************
  * Advanced commands
  ******************/
-bot.command('autobus', async (ctx) => {
+bot.command('bus', async (ctx) => {
   await getBus(ctx);
 });
 

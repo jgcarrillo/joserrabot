@@ -19,7 +19,7 @@ más importantes 🆘:
 /help - Ayuda sobre el bot
 
 *Comandos avanzados*
-/autobus - Horarios de autobuses
+/bus - Horarios de autobuses
 /tiempo - Conoce el tiempo en Murcia
 /birth - Cumpleaños de amigos
 
