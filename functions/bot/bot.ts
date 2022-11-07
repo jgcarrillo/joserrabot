@@ -3,22 +3,16 @@ import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
 import { getBirthdays, getBus, getInvitationLink, getWeather } from './commands/commands';
-import { getUserGreeting } from './on/on';
+import { getDefaultMessage, getUserGreeting } from './on/on';
 
 dotenv.config();
 
 const token: string = process.env.BOT_TOKEN ?? '';
 const bot = new Telegraf(token);
 
-/****************
- * Basic commands
- ***************/
 bot.start(async (ctx) => await actionStart(ctx, bot).catch((err) => console.log(err)));
 bot.help(async (ctx) => await actionHelp(ctx, bot).catch((err) => console.log(err)));
 
-/*******************
- * Advanced commands
- ******************/
 bot.command('bus', async (ctx) => {
   await getBus(ctx);
 });
@@ -31,18 +25,16 @@ bot.command('birth', async (ctx) => {
   await getBirthdays(ctx, bot);
 });
 
-/*********************
- * Management commands
- ********************/
 bot.command('invite', (ctx) => {
   getInvitationLink(ctx).catch((err) => console.log(err));
 });
 
-/*******************
- * Internal commands
- ******************/
 bot.on('new_chat_members', async (ctx) => {
   await getUserGreeting(ctx);
+});
+
+bot.on('text', async (ctx) => {
+  await getDefaultMessage(ctx);
 });
 
 bot.launch().catch((err) => console.log(err));

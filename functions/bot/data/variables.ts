@@ -31,10 +31,10 @@ export const birthdaysMessage = `
 
 *Joserra* - 30 de octubre de 1991
 *Jorge* - 26 de abril de 1991
-*Pedro* -
-*Juan Luis* -
-*Manu* -
+*Pedro* - 15 de marzo de 1991
+*Juan Luis* - 2 de abril de 1991
+*Manu* - 19 de diciembre de 1991
 *Camacho* -
 *Fran* -
-*Serrano* -
+*Serrano* 25 de diciembre de 1992
 *Toni* - `;

@@ -3,11 +3,6 @@ import { Message } from 'telegraf/typings/core/types/typegram';
 import { MountMap } from 'telegraf/typings/telegram-types';
 import Security from '../security/Security';
 
-/**
- * This functions returns the bot response when the bot is added to a new group
- * @param {NarrowedContext<Context, MountMap['new_chat_members']>} ctx - The context of the message
- * @returns {Promise<Message.TextMessage | undefined>} - The bot response with the credentials
- */
 export const getUserGreeting = async (
   ctx: NarrowedContext<Context, MountMap['new_chat_members']>
 ): Promise<Message.TextMessage | undefined> => {
@@ -27,4 +22,10 @@ export const getUserGreeting = async (
   }
 
   return await ctx.reply(greeting);
+};
+
+export const getDefaultMessage = async (ctx: Context): Promise<Message.TextMessage> => {
+  return await ctx.reply(
+    'El Joserrabot no es capaz de entener lo que dices, prueba a escribir /start para ver los comandos disponibles'
+  );
 };
