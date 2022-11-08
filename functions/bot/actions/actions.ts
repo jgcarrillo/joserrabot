@@ -3,6 +3,19 @@ import { Message, Update } from 'telegraf/typings/core/types/typegram';
 import { welcomeMessage, helpMessage } from '../data/variables';
 import WeatherService from '../services/WeatherService';
 
+interface CallbackQueryResponse {
+  update: {
+    update_id: string;
+    callback_query: {
+      id: string;
+      from: unknown;
+      message: unknown;
+      chat_instance: string;
+      data: string;
+    };
+  };
+}
+
 export const actionStart = async (
   ctx: Context,
   bot: Telegraf<Context<Update>>
@@ -20,19 +33,6 @@ export const actionHelp = async (
   const context = ctx as typeof ctx & { chat: number };
   return await bot.telegram.sendMessage(context.chat.id, helpMessage, { parse_mode: 'Markdown' });
 };
-
-interface CallbackQueryResponse {
-  update: {
-    update_id: string;
-    callback_query: {
-      id: string;
-      from: unknown;
-      message: unknown;
-      chat_instance: string;
-      data: string;
-    };
-  };
-}
 
 export const actionWeatherMessage = async (
   ctx: Context

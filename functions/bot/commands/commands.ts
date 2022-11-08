@@ -1,4 +1,4 @@
-import { Context, Telegraf } from 'telegraf';
+import { Context, Markup, Telegraf } from 'telegraf';
 import { Message, Update } from 'telegraf/typings/core/types/typegram';
 
 import { birthdaysMessage } from '../data/variables';
