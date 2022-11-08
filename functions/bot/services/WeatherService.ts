@@ -41,4 +41,20 @@ export default class WeatherService {
   getZone(): string {
     return this.zone;
   }
+
+  getWeatherIconMessage(data: ApiWeatherResponse): string {
+    let icon = '';
+    if (data.weather[0].description === 'clear sky') icon = 'soleado ☀';
+    if (data.weather[0].description === 'few clouds') icon = 'con algunas nubes ⛅';
+    if (data.weather[0].description === 'scattered clouds') icon = 'nublado ☁';
+    if (data.weather[0].description === 'broken clouds') icon = 'bastante nublado ☁☁';
+    if (data.weather[0].description === 'overcast clouds') icon = 'bastante nublado ☁☁';
+    if (data.weather[0].description === 'shower rain') icon = 'empezando a chispear 🌧';
+    if (data.weather[0].description === 'rain') icon = 'lluvioso 🌧';
+    if (data.weather[0].description === 'thunderstorm') icon = 'con tormentas 🌩';
+    if (data.weather[0].description === 'snow') icon = 'nevando ❄';
+    if (data.weather[0].description === 'mist') icon = 'con niebla 🌫';
+
+    return icon;
+  }
 }

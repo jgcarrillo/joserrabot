@@ -1,8 +1,8 @@
 import { Telegraf } from 'telegraf';
 import * as dotenv from 'dotenv';
 
-import { actionStart, actionHelp } from './actions/actions';
-import { getBirthdays, getBus, getInvitationLink, getWeather } from './commands/commands';
+import { actionStart, actionHelp, actionWeatherMessage } from './actions/actions';
+import { getBirthdays, getBus, getInvitationLink, getWeatherKeyboard } from './commands/commands';
 import { getDefaultMessage, getUserGreeting } from './on/on';
 
 dotenv.config();
@@ -18,7 +18,7 @@ bot.command('bus', async (ctx) => {
 });
 
 bot.command('tiempo', async (ctx) => {
-  await getWeather(ctx);
+  await getWeatherKeyboard(ctx, bot);
 });
 
 bot.command('birth', async (ctx) => {
@@ -35,6 +35,19 @@ bot.on('new_chat_members', async (ctx) => {
 
 bot.on('text', async (ctx) => {
   await getDefaultMessage(ctx);
+});
+
+bot.action('Murcia', async (ctx) => {
+  await actionWeatherMessage(ctx);
+});
+bot.action('Valencia', async (ctx) => {
+  await actionWeatherMessage(ctx);
+});
+bot.action('Madrid', async (ctx) => {
+  await actionWeatherMessage(ctx);
+});
+bot.action('Barcelona', async (ctx) => {
+  await actionWeatherMessage(ctx);
 });
 
 bot.launch().catch((err) => console.log(err));

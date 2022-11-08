@@ -3,7 +3,6 @@ import { Message, Update } from 'telegraf/typings/core/types/typegram';
 
 import { birthdaysMessage } from '../data/variables';
 import BusService from '../services/BusService';
-import WeatherService from '../services/WeatherService';
 
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
@@ -26,32 +25,29 @@ export const getBirthdays = async (
   });
 };
 
-export const getWeather = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
-  const weatherService = new WeatherService('Murcia');
-
-  try {
-    const { data } = await weatherService.getWeather();
-    const zone = weatherService.getZone();
-
-    // Check for weather icon
-    let icon = '';
-    if (data.weather[0].description === 'clear sky') icon = 'soleado ☀';
-    if (data.weather[0].description === 'few clouds') icon = 'con algunas nubes ⛅';
-    if (data.weather[0].description === 'scattered clouds') icon = 'nublado ☁';
-    if (data.weather[0].description === 'broken clouds') icon = 'bastante nublado ☁☁';
-    if (data.weather[0].description === 'overcast clouds') icon = 'bastante nublado ☁☁';
-    if (data.weather[0].description === 'shower rain') icon = 'empezando a chispear 🌧';
-    if (data.weather[0].description === 'rain') icon = 'lluvioso 🌧';
-    if (data.weather[0].description === 'thunderstorm') icon = 'con tormentas 🌩';
-    if (data.weather[0].description === 'snow') icon = 'nevando ❄';
-    if (data.weather[0].description === 'mist') icon = 'con niebla 🌫';
-
-    return await ctx.reply(
-      `La temperatura en ${zone} es de: ${data.main.temp} °C. El tiempo está ${icon}`
-    );
-  } catch (err) {
-    console.log(err);
-  }
+export const getWeatherKeyboard = async (
+  ctx: Context,
+  bot: Telegraf<Context<Update>>
+): Promise<void> => {
+  const context = ctx as typeof ctx & { chat: number };
+  await bot.telegram.sendMessage(
+    context.chat.id,
+    '☁️ Selecciona una ciudad  sobre la que mostrar su tiempo ☁️',
+    {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: 'Murcia', callback_data: 'Murcia' },
+            { text: 'Valencia', callback_data: 'Valencia' },
+            { text: 'Madrid', callback_data: 'Madrid' },
+            { text: 'Barcelona', callback_data: 'Barcelona' },
+          ],
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+      },
+    }
+  );
 };
 
 export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
