@@ -1,7 +1,7 @@
-import { Context, Markup, Telegraf } from 'telegraf';
+import { Context, Telegraf } from 'telegraf';
 import { Message, Update } from 'telegraf/typings/core/types/typegram';
 
-import { birthdaysMessage } from '../data/variables';
+import { birthdaysMessage, weatherMessage } from '../data/variables';
 import BusService from '../services/BusService';
 
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
@@ -25,29 +25,14 @@ export const getBirthdays = async (
   });
 };
 
-export const getWeatherKeyboard = async (
+export const getWeatherMessage = async (
   ctx: Context,
   bot: Telegraf<Context<Update>>
-): Promise<void> => {
+): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { chat: number };
-  await bot.telegram.sendMessage(
-    context.chat.id,
-    '☁️ Selecciona una ciudad  sobre la que mostrar su tiempo ☁️',
-    {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            { text: 'Murcia', callback_data: 'Murcia' },
-            { text: 'Valencia', callback_data: 'Valencia' },
-            { text: 'Madrid', callback_data: 'Madrid' },
-            { text: 'Barcelona', callback_data: 'Barcelona' },
-          ],
-        ],
-        resize_keyboard: true,
-        one_time_keyboard: true,
-      },
-    }
-  );
+  return await bot.telegram.sendMessage(context.chat.id, weatherMessage, {
+    parse_mode: 'Markdown',
+  });
 };
 
 export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefined> => {

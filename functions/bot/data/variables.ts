@@ -38,3 +38,23 @@ export const birthdaysMessage = `
 *Fran* -
 *Serrano* 25 de diciembre de 1992
 *Toni* - `;
+
+export const weatherMessage = `
+Puedo decirte qué tiempo hace en cualquier
+parte del mundo, así como mostrarte la
+previsión futura.
+
+🚩 Para empezar, envíame una ubicación o
+escríbeme el nombre de la ciudad y el país.
+`;
+
+export const forecastMessage = (
+  city: string,
+  country: string,
+  temp: number,
+  icon: string
+): string => {
+  return `En *${city}*, *${country}* la temperatura es de: ${temp} °C y está ${icon}.
+
+Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo`;
+};
