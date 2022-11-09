@@ -257,7 +257,7 @@ export const codes = [
   {
     id: 801,
     description: 'few clouds',
-    translation: 'on algunas nubes ⛅',
+    translation: 'con algunas nubes ⛅',
   },
   {
     id: 802,

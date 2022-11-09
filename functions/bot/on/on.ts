@@ -1,9 +1,10 @@
-import { Context, NarrowedContext, Telegraf } from 'telegraf';
-import { Message, Update } from 'telegraf/typings/core/types/typegram';
+import { Context, Markup, NarrowedContext } from 'telegraf';
+import { Message } from 'telegraf/typings/core/types/typegram';
 import { MountMap } from 'telegraf/typings/telegram-types';
 import { forecastMessage } from '../data/variables';
 import Security from '../security/Security';
 import WeatherService from '../services/WeatherService';
+import { BotContext } from '../types/types';
 
 interface MessageResponse {
   update: {
@@ -17,6 +18,7 @@ interface MessageResponse {
         latitude: number;
         longitude: number;
       };
+      text?: string;
     };
   };
 }
@@ -42,12 +44,10 @@ export const getUserGreeting = async (
   return await ctx.reply(greeting);
 };
 
-export const getDefaultMessage = async (
-  ctx: Context,
-  bot: Telegraf<Context<Update>>
-): Promise<Message.TextMessage> => {
-  const context = ctx as typeof ctx & MessageResponse & { chat: number };
+export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMessage> => {
+  const context = ctx as typeof ctx & MessageResponse;
 
+  // Check location
   if (context.update.message.location !== undefined) {
     const latitude = context.update.message.location.latitude;
     const longitude = context.update.message.location.longitude;
@@ -58,20 +58,25 @@ export const getDefaultMessage = async (
       const city = data.name;
       const country = data.sys.country;
       const temp = data.main.temp;
-      const icon = weatherService.getWeatherIconMessage(data);
+      const icon = weatherService.getWeatherIconMessage(data.weather[0].id);
 
-      return await bot.telegram.sendMessage(
-        context.chat.id,
-        forecastMessage(city, country, temp, icon),
-        {
-          parse_mode: 'Markdown',
-        }
+      if (context.session === undefined) {
+        context.session ??= { location: { latitude, longitude, city, country, temp, icon } };
+      }
+
+      await context.reply(
+        'Comandos disponibles para el tiempo',
+        Markup.keyboard([['/tiempo5'], ['/nuevaubicacion']])
+          .oneTime()
+          .resize()
       );
+
+      return await context.reply(forecastMessage(city, country, temp, icon), {
+        parse_mode: 'Markdown',
+      });
     } catch (err) {
       console.log(err);
     }
-
-    return await context.reply(`${latitude} and ${longitude}`);
   }
 
   return await context.reply(

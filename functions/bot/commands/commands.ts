@@ -1,5 +1,5 @@
-import { Context, Telegraf } from 'telegraf';
-import { Message, Update } from 'telegraf/typings/core/types/typegram';
+import { Context, Markup } from 'telegraf';
+import { Message } from 'telegraf/typings/core/types/typegram';
 
 import { birthdaysMessage, weatherMessage } from '../data/variables';
 import BusService from '../services/BusService';
@@ -15,24 +15,15 @@ export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessa
   return await ctx.reply(`Aquí tienes tu invitación: ${res.invite_link}`);
 };
 
-export const getBirthdays = async (
-  ctx: Context,
-  bot: Telegraf<Context<Update>>
-): Promise<Message.TextMessage> => {
-  const context = ctx as typeof ctx & { chat: number };
-  return await bot.telegram.sendMessage(context.chat.id, birthdaysMessage, {
-    parse_mode: 'Markdown',
-  });
+export const getBirthdays = async (ctx: Context): Promise<Message.TextMessage> => {
+  return await ctx.reply(birthdaysMessage, { parse_mode: 'Markdown' });
 };
 
-export const getWeatherMessage = async (
-  ctx: Context,
-  bot: Telegraf<Context<Update>>
-): Promise<Message.TextMessage> => {
-  const context = ctx as typeof ctx & { chat: number };
-  return await bot.telegram.sendMessage(context.chat.id, weatherMessage, {
-    parse_mode: 'Markdown',
-  });
+export const getWeatherMessage = async (ctx: Context): Promise<Message.TextMessage> => {
+  return await ctx.reply(
+    weatherMessage,
+    Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
+  );
 };
 
 export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefined> => {

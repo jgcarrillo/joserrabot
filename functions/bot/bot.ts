@@ -1,28 +1,36 @@
-import { Telegraf } from 'telegraf';
+import { Telegraf, session } from 'telegraf';
 import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
 import { getBirthdays, getBus, getInvitationLink, getWeatherMessage } from './commands/commands';
 import { getDefaultMessage, getUserGreeting } from './on/on';
+import { BotContext } from './types/types';
+import { getForecastForFiveDays } from './hears/hears';
 
 dotenv.config();
 
-const token: string = process.env.BOT_TOKEN ?? '';
-const bot = new Telegraf(token);
+if (process.env.BOT_TOKEN === undefined) {
+  throw new TypeError('BOT_TOKEN must be provided!');
+}
 
-bot.start(async (ctx) => await actionStart(ctx, bot).catch((err) => console.log(err)));
-bot.help(async (ctx) => await actionHelp(ctx, bot).catch((err) => console.log(err)));
+const token: string = process.env.BOT_TOKEN;
+const bot = new Telegraf<BotContext>(token);
+
+bot.use(session());
+
+bot.start(async (ctx) => await actionStart(ctx).catch((err) => console.log(err)));
+bot.help(async (ctx) => await actionHelp(ctx).catch((err) => console.log(err)));
 
 bot.command('bus', async (ctx) => {
   await getBus(ctx);
 });
 
 bot.command('tiempo', async (ctx) => {
-  await getWeatherMessage(ctx, bot);
+  await getWeatherMessage(ctx);
 });
 
 bot.command('birth', async (ctx) => {
-  await getBirthdays(ctx, bot);
+  await getBirthdays(ctx);
 });
 
 bot.command('invite', (ctx) => {
@@ -33,8 +41,18 @@ bot.on('new_chat_members', async (ctx) => {
   await getUserGreeting(ctx);
 });
 
+bot.hears('/tiempo5', async (ctx) => {
+  await getForecastForFiveDays(ctx);
+});
+bot.hears('/nuevaubicacion', async (ctx) => {
+  console.log('okkkkkkkkk');
+});
+
+// This function will check for any kind of message
+// It MUST BE at the end of the bot file
+// It also check if the user send a location
 bot.on('message', async (ctx) => {
-  await getDefaultMessage(ctx, bot);
+  await getDefaultMessage(ctx);
 });
 
 bot.launch().catch((err) => console.log(err));
