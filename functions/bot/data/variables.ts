@@ -45,7 +45,9 @@ parte del mundo, así como mostrarte la
 previsión futura.
 
 🚩 Para empezar, envíame una ubicación o
-escríbeme el nombre de la ciudad y el país.
+escríbeme el nombre de la ciudad y el país
+con el formato ciudad/pais, por ejemplo:
+Madrid/ES o Roma/IT.
 `;
 
 export const forecastMessage = (
@@ -56,5 +58,10 @@ export const forecastMessage = (
 ): string => {
   return `En *${city}*, *${country}* la temperatura es de: ${temp} °C y está ${icon}.
 
-Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo`;
+Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo.`;
 };
+
+export const defaultMessage = `
+El Joserrabot no es capaz de entener lo que dices, prueba a escribir /start para ver los comandos disponibles.
+Si estás intentando conocer el tiempo de algún lugar, revisa antes el comando /tiempo para ver el formato.
+`;

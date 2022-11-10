@@ -21,6 +21,7 @@ export const getForecastForFiveDays = async (
   const { data } = await weatherService.getForecastForThreeDays(lat, long);
 
   // I need to set the -19 because Telegram doesn't support too long messages
+  // Anyway, the API response includes 5 days forecast
   let message = `La previsión para ${city}, ${country} es:\n\n`;
   for (let i = 0; i < data.list.length - 19; i++) {
     message += formatForecast(data, i);

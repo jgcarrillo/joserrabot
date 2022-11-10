@@ -18,6 +18,10 @@ export interface BotContext extends Context {
 }
 
 interface ApiWeatherResponse {
+  coord: {
+    lon: number;
+    lat: number;
+  };
   weather: Weather[];
   main: Main;
   sys: SystemData;
