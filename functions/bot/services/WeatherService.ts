@@ -32,10 +32,7 @@ export default class WeatherService {
     return await axios.get(this.url);
   }
 
-  async getForecastForThreeDays(
-    lat?: number,
-    long?: number
-  ): Promise<AxiosResponse<ApiForecastResponse>> {
+  async getForecast(lat?: number, long?: number): Promise<AxiosResponse<ApiForecastResponse>> {
     this.url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${this.token}&units=metric`;
     return await axios.get(this.url);
   }

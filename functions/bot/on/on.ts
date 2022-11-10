@@ -51,7 +51,7 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
 
         await context.reply(
           'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
-          Markup.keyboard([['/tiempo3'], ['/nuevaubicacion']])
+          Markup.keyboard([['/prevision'], ['/nuevaubicacion']])
             .oneTime()
             .resize()
         );
@@ -68,7 +68,7 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
   // Check /nuevaubicacion command
   if (context.update.message.text === '/nuevaubicacion') {
     return await ctx.reply(
-      'Mándame la nueva ubicación',
+      'Mándame la nueva ubicación mediante el botón de abajo o mediante el formato ciudad/pais como Madrid/ES.',
       Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
     );
   }
@@ -92,7 +92,7 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
 
       await context.reply(
         'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
-        Markup.keyboard([['/tiempo3'], ['/nuevaubicacion']])
+        Markup.keyboard([['/prevision'], ['/nuevaubicacion']])
           .oneTime()
           .resize()
       );

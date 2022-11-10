@@ -4,12 +4,10 @@ import { getDefaultMessage } from '../on/on';
 import WeatherService from '../services/WeatherService';
 import { BotContext } from '../types/types';
 
-export const getForecastForFiveDays = async (
-  ctx: BotContext
-): Promise<Message.TextMessage | undefined> => {
+export const getForecast = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
   if (ctx.session === undefined) {
     return await ctx.reply(
-      'Por favor, prueba antes usando el comando /tiempo y mandando tu localización'
+      'Por favor, prueba antes usando el comando /tiempo y mandando tu localización.'
     );
   }
   const lat = ctx.session.location?.latitude;
@@ -18,7 +16,7 @@ export const getForecastForFiveDays = async (
   const country = ctx.session.location?.country;
 
   const weatherService = new WeatherService();
-  const { data } = await weatherService.getForecastForThreeDays(lat, long);
+  const { data } = await weatherService.getForecast(lat, long);
 
   // I need to set the -19 because Telegram doesn't support too long messages
   // Anyway, the API response includes 5 days forecast

@@ -1,11 +1,12 @@
 import { Telegraf, session } from 'telegraf';
+import './database/database';
 import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
 import { getBirthdays, getBus, getInvitationLink, getWeatherMessage } from './commands/commands';
 import { getDefaultMessage, getUserGreeting } from './on/on';
 import { BotContext } from './types/types';
-import { getForecastForFiveDays, getNewLocation } from './hears/hears';
+import { getForecast, getNewLocation } from './hears/hears';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ if (process.env.BOT_TOKEN === undefined) {
 const token: string = process.env.BOT_TOKEN;
 const bot = new Telegraf<BotContext>(token);
 
+// Sessions are deprecated and probably in a future won't work (https://github.com/telegraf/telegraf/issues/1372)
 bot.use(session());
 
 bot.start(async (ctx) => await actionStart(ctx).catch((err) => console.log(err)));
@@ -29,7 +31,7 @@ bot.command('tiempo', async (ctx) => {
   await getWeatherMessage(ctx);
 });
 
-bot.command('birth', async (ctx) => {
+bot.command('recordatorio', async (ctx) => {
   await getBirthdays(ctx);
 });
 
@@ -41,8 +43,8 @@ bot.on('new_chat_members', async (ctx) => {
   await getUserGreeting(ctx);
 });
 
-bot.hears('/tiempo3', async (ctx) => {
-  await getForecastForFiveDays(ctx);
+bot.hears('/prevision', async (ctx) => {
+  await getForecast(ctx);
 });
 bot.hears('/nuevaubicacion', async (ctx) => {
   await getNewLocation(ctx);

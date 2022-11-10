@@ -20,8 +20,8 @@ más importantes 🆘:
 
 *Comandos avanzados*
 /bus - Horarios de autobuses
-/tiempo - Conoce el tiempo en Murcia
-/birth - Cumpleaños de amigos
+/tiempo - Conoce el tiempo mundial
+/recordatorio - Cumpleaños de amigos
 
 *Comandos de gestión*
 /invite - Genera un link de invitación`;
@@ -56,7 +56,7 @@ export const forecastMessage = (
   temp: number,
   icon: string
 ): string => {
-  return `En *${city}*, *${country}* la temperatura es de: ${temp} °C y está ${icon}.
+  return `En *${city}*, *${country}* la temperatura es de: ${temp} °C y está ${icon}
 
 Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo.`;
 };
