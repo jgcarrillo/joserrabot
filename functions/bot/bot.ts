@@ -5,7 +5,7 @@ import { actionStart, actionHelp } from './actions/actions';
 import { getBirthdays, getBus, getInvitationLink, getWeatherMessage } from './commands/commands';
 import { getDefaultMessage, getUserGreeting } from './on/on';
 import { BotContext } from './types/types';
-import { getForecastForFiveDays } from './hears/hears';
+import { getForecastForFiveDays, getNewLocation } from './hears/hears';
 
 dotenv.config();
 
@@ -45,7 +45,7 @@ bot.hears('/tiempo3', async (ctx) => {
   await getForecastForFiveDays(ctx);
 });
 bot.hears('/nuevaubicacion', async (ctx) => {
-  console.log('okkkkkkkkk');
+  await getNewLocation(ctx);
 });
 
 // This function will check for any kind of message

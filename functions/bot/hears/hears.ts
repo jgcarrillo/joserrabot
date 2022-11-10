@@ -1,5 +1,6 @@
 import { Message } from 'telegraf/typings/core/types/typegram';
 import { formatForecast } from '../helpers/helpers';
+import { getDefaultMessage } from '../on/on';
 import WeatherService from '../services/WeatherService';
 import { BotContext } from '../types/types';
 
@@ -26,4 +27,8 @@ export const getForecastForFiveDays = async (
   }
 
   return await ctx.reply(message, { parse_mode: 'Markdown' });
+};
+
+export const getNewLocation = async (ctx: BotContext): Promise<Message.TextMessage> => {
+  return await getDefaultMessage(ctx);
 };

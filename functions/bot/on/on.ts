@@ -30,6 +30,13 @@ export const getUserGreeting = async (
 export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & MessageResponse;
 
+  if (context.update.message.text === '/nuevaubicacion') {
+    return await ctx.reply(
+      'Mándame la nueva ubicación',
+      Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
+    );
+  }
+
   // Check location
   if (context.update.message.location !== undefined) {
     const latitude = context.update.message.location.latitude;
