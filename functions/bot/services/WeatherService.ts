@@ -1,98 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { codes } from '../data/weatherConditionsIds';
-
-interface ApiWeatherResponse {
-  weather: Weather[];
-  main: Main;
-  sys: SystemData;
-  name: string;
-}
-
-interface Main {
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  humidity: number;
-  sea_level: number;
-  grnd_level: number;
-}
-
-interface Weather {
-  id: number;
-  main: string;
-  description: string;
-  icon: string;
-}
-
-interface SystemData {
-  type: number;
-  id: number;
-  country: string;
-  sunrise: number;
-  sunset: number;
-}
-
-interface WeatherApiResponse {
-  cod: string;
-  message: number;
-  cnt: number;
-  list: WeatherList[];
-  city: {
-    id: number;
-    name: string;
-    coord: {
-      lat: number;
-      lon: number;
-    };
-    country: string;
-    population: number;
-    timezone: number;
-    sunrise: number;
-    sunset: number;
-  };
-}
-
-interface WeatherList {
-  dt: number;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    sea_level: number;
-    grnd_level: number;
-    humidity: number;
-    temp_kf: number;
-  };
-  weather: Weather[];
-  clouds: {
-    all: number;
-  };
-  wind: {
-    speed: number;
-    deg: number;
-    gust: number;
-  };
-  visibility: number;
-  pop: number;
-  rain: {
-    '3h': number;
-  };
-  sys: {
-    pod: string;
-  };
-  dt_txt: Date;
-}
-
-interface Weather {
-  id: number;
-  main: string;
-  description: string;
-  icon: string;
-}
+import { ApiForecastResponse, ApiWeatherResponse } from '../types/types';
 
 export default class WeatherService {
   private readonly token: string;
@@ -124,15 +32,15 @@ export default class WeatherService {
     return await axios.get(this.url);
   }
 
-  async getForecastForFiveDays(
+  async getForecastForThreeDays(
     lat?: number,
     long?: number
-  ): Promise<AxiosResponse<WeatherApiResponse>> {
+  ): Promise<AxiosResponse<ApiForecastResponse>> {
     this.url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${this.token}&units=metric`;
     return await axios.get(this.url);
   }
 
-  getWeatherIconMessage(data: number): string {
+  static getWeatherIconMessage(data: number): string {
     let icon = '';
 
     codes.forEach((elem) => {

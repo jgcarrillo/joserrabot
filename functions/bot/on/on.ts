@@ -4,24 +4,7 @@ import { MountMap } from 'telegraf/typings/telegram-types';
 import { forecastMessage } from '../data/variables';
 import Security from '../security/Security';
 import WeatherService from '../services/WeatherService';
-import { BotContext } from '../types/types';
-
-interface MessageResponse {
-  update: {
-    update_id: string;
-    message: {
-      message_id: string;
-      from: unknown;
-      chat: unknown;
-      date: string;
-      location: {
-        latitude: number;
-        longitude: number;
-      };
-      text?: string;
-    };
-  };
-}
+import { BotContext, MessageResponse } from '../types/types';
 
 export const getUserGreeting = async (
   ctx: NarrowedContext<Context, MountMap['new_chat_members']>
@@ -58,7 +41,7 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
       const city = data.name;
       const country = data.sys.country;
       const temp = data.main.temp;
-      const icon = weatherService.getWeatherIconMessage(data.weather[0].id);
+      const icon = WeatherService.getWeatherIconMessage(data.weather[0].id);
 
       if (context.session === undefined) {
         context.session ??= { location: { latitude, longitude, city, country, temp, icon } };
@@ -66,7 +49,7 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
 
       await context.reply(
         'Comandos disponibles para el tiempo',
-        Markup.keyboard([['/tiempo5'], ['/nuevaubicacion']])
+        Markup.keyboard([['/tiempo3'], ['/nuevaubicacion']])
           .oneTime()
           .resize()
       );

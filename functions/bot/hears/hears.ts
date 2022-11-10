@@ -1,4 +1,5 @@
 import { Message } from 'telegraf/typings/core/types/typegram';
+import { formatForecast } from '../helpers/helpers';
 import WeatherService from '../services/WeatherService';
 import { BotContext } from '../types/types';
 
@@ -12,25 +13,17 @@ export const getForecastForFiveDays = async (
   }
   const lat = ctx.session.location?.latitude;
   const long = ctx.session.location?.longitude;
+  const city = ctx.session.location?.city;
+  const country = ctx.session.location?.country;
 
   const weatherService = new WeatherService();
-  const { data } = await weatherService.getForecastForFiveDays(lat, long);
+  const { data } = await weatherService.getForecastForThreeDays(lat, long);
 
-  const weatherDataForFiveDays = [];
-  let message = '';
-  weatherDataForFiveDays.push(data.list);
-  weatherDataForFiveDays.forEach((listElem) => {
-    listElem.forEach((weatherList) => {
-      const dateHour = weatherList.dt_txt.toString().split(' ');
-      const [date, hour] = dateHour;
+  // I need to set the -19 because Telegram doesn't support too long messages
+  let message = `La previsión para ${city}, ${country} es:\n\n`;
+  for (let i = 0; i < data.list.length - 19; i++) {
+    message += formatForecast(data, i);
+  }
 
-      // TODO: it's necessary to do another loop over the weather. FIX it!!
-      // TODO: create a function to control the Date format
-      // const icon = weatherService.getWeatherIconMessage(weatherList.weather)
-
-      message += `Fecha: ${date} - Hora: ${hour} -  `;
-    });
-  });
-
-  return await ctx.reply(message);
+  return await ctx.reply(message, { parse_mode: 'Markdown' });
 };

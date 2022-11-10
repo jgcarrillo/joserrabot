@@ -41,7 +41,7 @@ bot.on('new_chat_members', async (ctx) => {
   await getUserGreeting(ctx);
 });
 
-bot.hears('/tiempo5', async (ctx) => {
+bot.hears('/tiempo3', async (ctx) => {
   await getForecastForFiveDays(ctx);
 });
 bot.hears('/nuevaubicacion', async (ctx) => {
