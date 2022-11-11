@@ -1,7 +1,7 @@
 import { Context } from 'telegraf';
 
 export interface SessionData {
-  location:
+  location?:
     | {
         latitude: number;
         longitude: number;
@@ -11,6 +11,10 @@ export interface SessionData {
         temp: number;
       }
     | undefined;
+  reminderData?: {
+    name?: string;
+    value?: string;
+  };
 }
 
 export interface BotContext extends Context {
@@ -116,11 +120,25 @@ interface Weather {
 }
 
 interface MessageResponse {
+  message: {
+    message_id: number;
+    from: MessageFrom;
+    chat: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      username: string;
+      type: string;
+    };
+    date: number;
+    text: string;
+    entities: unknown;
+  };
   update: {
     update_id: string;
     message: {
       message_id: string;
-      from: unknown;
+      from: MessageFrom;
       chat: unknown;
       date: string;
       location: {
@@ -130,6 +148,15 @@ interface MessageResponse {
       text?: string;
     };
   };
+}
+
+interface MessageFrom {
+  id: number;
+  is_bot: boolean;
+  first_name: string;
+  last_name: string;
+  username: string;
+  language_code: string;
 }
 
 interface Stop {

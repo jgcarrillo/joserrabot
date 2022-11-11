@@ -1,32 +1,31 @@
 import { Schema, model } from 'mongoose';
 
 interface ReminderData {
-  id: string;
-  name: string;
-  user: string;
-  reminder: string;
+  botUserId: number;
+  userName: string;
+  reminderName: string;
+  reminderValue: string;
   isActive: boolean;
 }
 
 const ReminderSchema = new Schema<ReminderData>({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  user: {
-    type: String,
+  botUserId: {
+    type: Number,
     required: true,
     unique: false,
     trim: true,
   },
-  reminder: {
+  userName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  reminderName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  reminderValue: {
     type: String,
     required: true,
     trim: true,
