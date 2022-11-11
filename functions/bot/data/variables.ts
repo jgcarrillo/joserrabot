@@ -19,12 +19,21 @@ más importantes 🆘:
 /help - Ayuda sobre el bot
 
 *Comandos avanzados*
-/bus - Horarios de autobuses
 /tiempo - Conoce el tiempo mundial
-/recordatorio - Cumpleaños de amigos
+/recordatorio - Añade un recordatorio
+/bus - Horarios de autobuses
 
 *Comandos de gestión*
 /invite - Genera un link de invitación`;
+
+export const reminderMessage = `
+*✅ Recordatorios ✅*
+
+¿Qué quieres hacer?:
+/crear - Crear un nuevo recordatorio
+/listar - Listar todos mis recordatorios
+/eliminar - Eliminar un recordatorio
+`;
 
 export const birthdaysMessage = `
 *🎂 cumpleaños 🎂*
@@ -46,8 +55,8 @@ previsión futura.
 
 🚩 Para empezar, envíame una ubicación o
 escríbeme el nombre de la ciudad y el país
-con el formato ciudad/pais, por ejemplo:
-Madrid/ES o Roma/IT.
+con el formato ciudad/tiempo, por ejemplo:
+Madrid/tiempo o Roma/tiempo.
 `;
 
 export const forecastMessage = (
@@ -56,12 +65,13 @@ export const forecastMessage = (
   temp: number,
   icon: string
 ): string => {
-  return `En *${city}*, *${country}* la temperatura es de: ${temp} °C y está ${icon}
+  return `En *${city}*, *${country}* la temperatura es de: ${temp} °C, ${icon}
 
 Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo.`;
 };
 
 export const defaultMessage = `
 El Joserrabot no es capaz de entener lo que dices, prueba a escribir /start para ver los comandos disponibles.
+
 Si estás intentando conocer el tiempo de algún lugar, revisa antes el comando /tiempo para ver el formato.
 `;

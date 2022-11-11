@@ -1,8 +1,10 @@
 import { Context, Markup } from 'telegraf';
 import { Message } from 'telegraf/typings/core/types/typegram';
 
-import { birthdaysMessage, weatherMessage } from '../data/variables';
+import { reminderMessage, weatherMessage } from '../data/variables';
 import BusService from '../services/BusService';
+import { checkForMessage } from '../on/on';
+import { BotContext } from '../types/types';
 
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
@@ -15,8 +17,8 @@ export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessa
   return await ctx.reply(`Aquí tienes tu invitación: ${res.invite_link}`);
 };
 
-export const getBirthdays = async (ctx: Context): Promise<Message.TextMessage> => {
-  return await ctx.reply(birthdaysMessage, { parse_mode: 'Markdown' });
+export const setReminder = async (ctx: Context): Promise<Message.TextMessage> => {
+  return await ctx.reply(reminderMessage, { parse_mode: 'Markdown' });
 };
 
 export const getWeatherMessage = async (ctx: Context): Promise<Message.TextMessage> => {
@@ -36,4 +38,9 @@ export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefi
   } catch (err) {
     console.log(err);
   }
+};
+
+export const getNewLocation = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
+  // Check for message agai because I need to check if /nuevaubicacion exists in the message context
+  return await checkForMessage(ctx);
 };

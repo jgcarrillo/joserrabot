@@ -13,5 +13,5 @@ export const formatForecast = (data: ApiForecastResponse, index: number): string
     data.list[index].weather[0].id
   )}`;
 
-  return `${dateAndHourFormat}: *${tempFormat}* ${weatherIconFormat}\n`;
+  return `${dateAndHourFormat}: *${tempFormat}*, ${weatherIconFormat}\n`;
 };

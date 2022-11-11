@@ -6,6 +6,7 @@ import Security from '../security/Security';
 import WeatherService from '../services/WeatherService';
 import { BotContext, MessageResponse } from '../types/types';
 
+// TODO: this doesn't work
 export const getUserGreeting = async (
   ctx: NarrowedContext<Context, MountMap['new_chat_members']>
 ): Promise<Message.TextMessage | undefined> => {
@@ -27,9 +28,44 @@ export const getUserGreeting = async (
   return await ctx.reply(greeting);
 };
 
-export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMessage> => {
+export const getLocation = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
   const context = ctx as typeof ctx & MessageResponse;
-  const regexCityCountry = /[A-Za-z]\/[A-Za-z]{2}/;
+
+  // Check location
+  const latitude = context.update.message.location.latitude;
+  const longitude = context.update.message.location.longitude;
+
+  try {
+    const weatherService = new WeatherService();
+    const { data } = await weatherService.getWeatherByLatLong(latitude, longitude);
+    const city = data.name;
+    const country = data.sys.country;
+    const temp = data.main.temp;
+    const icon = WeatherService.getWeatherIconMessage(data.weather[0].id);
+
+    context.session = { location: { latitude, longitude, city, country, temp, icon } };
+
+    await context.reply(
+      'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
+      Markup.keyboard([['/prevision'], ['/nuevaubicacion']])
+        .oneTime()
+        .resize()
+    );
+
+    return await context.reply(forecastMessage(city, country, temp, icon), {
+      parse_mode: 'Markdown',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// This function will check for every message you sent to the bot
+export const checkForMessage = async (
+  ctx: BotContext
+): Promise<Message.TextMessage | undefined> => {
+  const context = ctx as typeof ctx & MessageResponse;
+  const regexCityCountry = /[A-Za-z]\/\btiempo\b/;
 
   // Get weather with the format city/COUNTRY for example Murcia/ES
   if (context.update.message.text !== undefined) {
@@ -37,9 +73,9 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
       try {
         const zone = context.update.message.text.split('/')[0];
 
-        // TODO: Refactor this because it's the same in check location function below
         const weatherService = new WeatherService();
         const { data } = await weatherService.getWeatherByZone(zone);
+
         const city = data.name;
         const country = data.sys.country;
         const temp = data.main.temp;
@@ -63,48 +99,18 @@ export const getDefaultMessage = async (ctx: BotContext): Promise<Message.TextMe
         console.log(err);
       }
     }
-  }
 
-  // Check /nuevaubicacion command
-  if (context.update.message.text === '/nuevaubicacion') {
-    return await ctx.reply(
-      'Mándame la nueva ubicación mediante el botón de abajo o mediante el formato ciudad/pais como Madrid/ES.',
-      Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
-    );
-  }
-
-  // Check location
-  if (context.update.message.location !== undefined) {
-    const latitude = context.update.message.location.latitude;
-    const longitude = context.update.message.location.longitude;
-
-    try {
-      const weatherService = new WeatherService();
-      const { data } = await weatherService.getWeatherByLatLong(latitude, longitude);
-      const city = data.name;
-      const country = data.sys.country;
-      const temp = data.main.temp;
-      const icon = WeatherService.getWeatherIconMessage(data.weather[0].id);
-
-      if (context.session === undefined) {
-        context.session = { location: { latitude, longitude, city, country, temp, icon } };
-      }
-
-      await context.reply(
-        'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
-        Markup.keyboard([['/prevision'], ['/nuevaubicacion']])
-          .oneTime()
-          .resize()
+    if (context.update.message.text === '/nuevaubicacion') {
+      return await ctx.reply(
+        'Mándame la nueva ubicación mediante el botón de abajo o mediante el formato ciudad/tiempo como Madrid/tiempo.',
+        Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
       );
-
-      return await context.reply(forecastMessage(city, country, temp, icon), {
-        parse_mode: 'Markdown',
-      });
-    } catch (err) {
-      console.log(err);
     }
   }
 
   // If the message is different from a location or a /nuevaubicacion command, reply with this
+  // Probably uncomment this line below if you want to use the bot in a group
+  // otherwise the bot automatically reply every time you send a message different from
+  // a location or /nuevaubicacion command
   return await context.reply(defaultMessage);
 };

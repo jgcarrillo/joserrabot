@@ -3,10 +3,16 @@ import './database/database';
 import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
-import { getBirthdays, getBus, getInvitationLink, getWeatherMessage } from './commands/commands';
-import { getDefaultMessage, getUserGreeting } from './on/on';
+import {
+  getBus,
+  getInvitationLink,
+  getNewLocation,
+  getWeatherMessage,
+  setReminder,
+} from './commands/commands';
+import { checkForMessage, getLocation, getUserGreeting } from './on/on';
 import { BotContext } from './types/types';
-import { getForecast, getNewLocation } from './hears/hears';
+import { getForecast } from './hears/hears';
 
 dotenv.config();
 
@@ -32,29 +38,34 @@ bot.command('tiempo', async (ctx) => {
 });
 
 bot.command('recordatorio', async (ctx) => {
-  await getBirthdays(ctx);
+  await setReminder(ctx);
 });
 
 bot.command('invite', (ctx) => {
   getInvitationLink(ctx).catch((err) => console.log(err));
 });
 
+bot.command('nuevaubicacion', async (ctx) => {
+  await getNewLocation(ctx);
+});
+
 bot.on('new_chat_members', async (ctx) => {
   await getUserGreeting(ctx);
 });
 
+bot.on('location', async (ctx) => {
+  await getLocation(ctx);
+});
+
 bot.hears('/prevision', async (ctx) => {
   await getForecast(ctx);
-});
-bot.hears('/nuevaubicacion', async (ctx) => {
-  await getNewLocation(ctx);
 });
 
 // This function will check for any kind of message
 // It MUST BE at the end of the bot file
 // It also check if the user send a location
 bot.on('message', async (ctx) => {
-  await getDefaultMessage(ctx);
+  await checkForMessage(ctx);
 });
 
 bot.launch().catch((err) => console.log(err));
