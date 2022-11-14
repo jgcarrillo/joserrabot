@@ -45,7 +45,6 @@ export const getLocation = async (ctx: BotContext): Promise<Message.TextMessage 
 
     // TODO: Fix sessions, now are broken
     // context.session.location = { latitude, longitude, city, country, temp, icon };
-    // context.myContextProp.location = { latitude, longitude, city, country, temp, icon };
 
     console.log(context.session);
 
