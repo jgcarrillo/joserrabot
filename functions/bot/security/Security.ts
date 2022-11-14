@@ -9,7 +9,7 @@ export default class Security {
     return this.withelist;
   }
 
-  isChatInTheWhitelist(chatId: number): boolean {
+  isChatInTheWhitelist(chatId: number | undefined): boolean {
     let isInWhitelist = true;
 
     for (const chat of this.withelist) {

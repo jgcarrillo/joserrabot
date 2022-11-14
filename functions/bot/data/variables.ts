@@ -1,10 +1,10 @@
-export const welcomeMessage = `¡Bienvenido!
+export const welcomeMessage = `¡Bienvenido\\!
 Soy el *joserrabot* 💪
 A través de este bot podrás:
 
 Conocer los horarios de los autobuses de Murcia 🚌
 Conocer el estado del tiempo ☀
-Recibir avisos de cumpleaños 🎂
+Establecer avisos personalizados 🎂
 
 Si quieres conocer los comandos con
 más detalle, usa /help 🆘`;
@@ -15,24 +15,24 @@ aquí tienes una lista de los comandos
 más importantes 🆘:
 
 *Comandos básicos*
-/start - Iniciar el bot
-/help - Ayuda sobre el bot
+/start \\- Iniciar el bot
+/help \\- Ayuda sobre el bot
 
 *Comandos avanzados*
-/tiempo - Conoce el tiempo mundial
-/recordatorio - Añade un recordatorio
-/bus - Horarios de autobuses
+/tiempo \\- Conoce el tiempo mundial
+/recordatorio \\- Añade un recordatorio
+/bus \\- Horarios de autobuses
 
 *Comandos de gestión*
-/invite - Genera un link de invitación`;
+/invitar \\- Genera un link de invitación`;
 
 export const reminderMessage = `
 *✅ Recordatorios ✅*
 
 ¿Qué quieres hacer?:
-/crear - Crear un nuevo recordatorio
-/listar - Listar todos mis recordatorios
-/eliminar - Eliminar un recordatorio
+/crear \\- Crear un nuevo recordatorio
+/listar \\- Listar todos mis recordatorios
+/eliminar \\- Eliminar un recordatorio
 `;
 
 export const birthdaysMessage = `
