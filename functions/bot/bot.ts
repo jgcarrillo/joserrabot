@@ -1,10 +1,9 @@
-import { Telegraf, session } from 'telegraf';
+import { Telegraf, session, Scenes } from 'telegraf';
 import './database/database';
 import * as dotenv from 'dotenv';
 
 import { actionStart, actionHelp } from './actions/actions';
 import {
-  createNewReminder,
   deleteReminder,
   getBus,
   getInvitationLink,
@@ -12,6 +11,7 @@ import {
   getWeatherMessage,
   listReminders,
   setReminder,
+  reminderScene,
 } from './commands/commands';
 import { checkForMessage, getLocation, getUserGreeting } from './on/on';
 import { BotContext } from './types/types';
@@ -26,8 +26,7 @@ if (process.env.BOT_TOKEN === undefined) {
 const token: string = process.env.BOT_TOKEN;
 const bot = new Telegraf<BotContext>(token);
 
-// Sessions are deprecated and probably in a future won't work (https://github.com/telegraf/telegraf/issues/1372). It's better to use scenes or wizards (check Telegraf github examples)
-bot.use(session());
+const stage = new Scenes.Stage<BotContext>([reminderScene], { default: 'reminderScene' });
 
 bot.start(async (ctx) => await actionStart(ctx).catch((err) => console.log(err)));
 bot.help(async (ctx) => await actionHelp(ctx).catch((err) => console.log(err)));
@@ -42,10 +41,6 @@ bot.command('tiempo', async (ctx) => {
 
 bot.command('recordatorio', async (ctx) => {
   await setReminder(ctx);
-});
-
-bot.command('crear', async (ctx) => {
-  await createNewReminder(ctx);
 });
 
 bot.command('listar', async (ctx) => {
@@ -76,13 +71,9 @@ bot.hears('/prevision', async (ctx) => {
   await getForecast(ctx);
 });
 
-/*
-bot.action('Name', async (ctx) => {
-  await ctx.answerCbQuery();
-  console.log(ctx.session);
-  await ctx.reply('name name name');
-});
-*/
+// Sessions are deprecated and probably in a future won't work (https://github.com/telegraf/telegraf/issues/1372). It's better to use scenes or wizards (check Telegraf github examples)
+bot.use(session());
+bot.use(stage.middleware());
 
 // This function will check for any kind of message
 // It MUST BE at the end of the bot file

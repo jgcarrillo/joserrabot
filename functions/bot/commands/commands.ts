@@ -1,9 +1,10 @@
-import { Context, Markup } from 'telegraf';
+import { Context, Markup, Composer, Scenes } from 'telegraf';
 import { Message } from 'telegraf/typings/core/types/typegram';
 import { reminderMessage, weatherMessage } from '../data/variables';
 import BusService from '../services/BusService';
 import { checkForMessage } from '../on/on';
 import { BotContext, MessageResponse } from '../types/types';
+import { insertReminderIntoDatabase } from '../database/database';
 
 export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
@@ -43,42 +44,56 @@ export const getNewLocation = async (ctx: BotContext): Promise<Message.TextMessa
   return await checkForMessage(ctx);
 };
 
-// TODO: fix this
-// https://github.com/telegraf/telegraf/issues/705
-export const createNewReminder = async (
-  ctx: BotContext
-): Promise<Message.TextMessage | undefined> => {
-  const context = ctx as typeof ctx & MessageResponse;
-  return await context.reply('Crear un recordatorio');
+export const stepHandler = new Composer<BotContext>();
+stepHandler.command('crear', async (ctx) => {
+  await ctx.reply('¿Qué nombre quieres que le pongamos?');
+  ctx.session.reminderName = '';
+  ctx.session.reminderValue = '';
 
-  // const userId = context.update.message.from.id;
-  // const userName = context.update.message.from.first_name;
-  /*
-  await context.reply(
-    'Escoge una opción',
-    Markup.inlineKeyboard([
-      [Markup.button.callback('Nombre del recordatorio', 'Name')],
-      [Markup.button.callback('Contenido del recordatorio', 'Value')],
-    ])
-  );
-  */
+  return ctx.wizard.next();
+});
 
-  /*
-  if (context.message.text.length > 0) {
-    const newReminder = new Reminder({
+export const reminderScene = new Scenes.WizardScene(
+  'reminderScene',
+  stepHandler,
+  async (ctx) => {
+    const context = ctx as typeof ctx & MessageResponse;
+
+    if (context.message.text.length < 2) {
+      await ctx.reply('Por favor, introduce un nombre correcto');
+      return;
+    }
+
+    ctx.session.reminderName = context.message.text;
+    await ctx.reply('¿Qué contenido quieres que tenga tu recordatorio?');
+
+    return ctx.wizard.next();
+  },
+  async (ctx) => {
+    const context = ctx as typeof ctx & MessageResponse;
+
+    const userId = context.update.message.from.id;
+    const userName = context.update.message.from.first_name;
+
+    if (context.message.text.length < 2) {
+      await ctx.reply('Por favor, introduce un valor correcto');
+      return;
+    }
+
+    ctx.session.reminderValue = context.message.text;
+
+    await insertReminderIntoDatabase(
       userName,
-      botUserId: userId,
-      reminderName: context.message.text,
-      reminderValue: context.message.text,
-      isActive: true,
-    });
-    await newReminder.save();
+      userId,
+      context.session.reminderName,
+      context.session.reminderValue
+    );
 
-    return await context.reply('Recordatorio creado!');
+    await ctx.reply('¡Recordatorio añadido!');
+
+    return await ctx.scene.leave();
   }
-  */
-  // return await context.reply('Por favor, introduce datos correctos');
-};
+);
 
 export const listReminders = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
   const context = ctx as typeof ctx & MessageResponse;

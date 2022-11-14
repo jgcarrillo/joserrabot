@@ -1,24 +1,27 @@
-import { Context } from 'telegraf';
+import { Context, Scenes } from 'telegraf';
 
-export interface SessionData {
-  location?:
-    | {
-        latitude: number;
-        longitude: number;
-        city: string;
-        country: string;
-        icon: string;
-        temp: number;
-      }
-    | undefined;
-  reminderData?: {
-    name?: string;
-    value?: string;
+export interface SessionData extends Scenes.WizardSession {
+  location?: {
+    latitude: number;
+    longitude: number;
+    city: string;
+    country: string;
+    icon: string;
+    temp: number;
   };
+  reminderName?: string | undefined;
+  reminderValue?: string | undefined;
 }
 
 export interface BotContext extends Context {
+  // will be available under `ctx.myContextProp`
+  myContextProp: string;
+  // declare session type
   session: SessionData;
+  // declare scene type
+  scene: Scenes.SceneContextScene<BotContext, Scenes.WizardSessionData>;
+  // declare wizard type
+  wizard: Scenes.WizardContextWizard<BotContext>;
 }
 
 interface ApiWeatherResponse {

@@ -43,7 +43,11 @@ export const getLocation = async (ctx: BotContext): Promise<Message.TextMessage 
     const temp = data.main.temp;
     const icon = WeatherService.getWeatherIconMessage(data.weather[0].id);
 
-    context.session = { location: { latitude, longitude, city, country, temp, icon } };
+    // TODO: Fix sessions, now are broken
+    // context.session.location = { latitude, longitude, city, country, temp, icon };
+    // context.myContextProp.location = { latitude, longitude, city, country, temp, icon };
+
+    console.log(context.session);
 
     await context.reply(
       'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
@@ -83,7 +87,9 @@ export const checkForMessage = async (
         const latitude = data.coord.lat;
         const longitude = data.coord.lon;
 
-        context.session = { location: { latitude, longitude, city, country, temp, icon } };
+        // TODO: Fix sessions, now are broken
+        // context.session.location = { latitude, longitude, city, country, temp, icon };
+        console.log(context);
 
         await context.reply(
           'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
