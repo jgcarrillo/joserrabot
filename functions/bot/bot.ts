@@ -10,10 +10,12 @@ import {
   commandNewLocation,
   commandSetReminder,
   commandStart,
+  createNewReminder,
   onGetForecast,
 } from './commands/commands';
 import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/on';
-import { ContextGrammy, SessionGrammy } from './types/types';
+import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
+import { conversations, createConversation } from '@grammyjs/conversations';
 
 dotenv.config();
 
@@ -22,7 +24,7 @@ if (process.env.BOT_TOKEN === undefined) {
 }
 
 const token: string = process.env.BOT_TOKEN;
-const bot = new Bot<ContextGrammy>(token);
+const bot = new Bot<ContextGrammy & ConversationContext>(token);
 
 const initialSession = (): SessionGrammy => {
   return {
@@ -31,6 +33,10 @@ const initialSession = (): SessionGrammy => {
   };
 };
 bot.use(session({ initial: initialSession }));
+
+bot.use(conversations());
+
+bot.use(createConversation(createNewReminder));
 
 bot.command('start', async (ctx) => {
   await commandStart(ctx);
@@ -54,6 +60,10 @@ bot.command('recordatorio', async (ctx) => {
 
 bot.command('tiempo', async (ctx) => {
   await commandGetWeatherMessage(ctx);
+});
+
+bot.command('crear', async (ctx) => {
+  await ctx.conversation.enter('createNewReminder');
 });
 
 bot.command('listar', async (ctx) => {

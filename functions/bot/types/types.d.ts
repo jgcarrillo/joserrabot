@@ -1,4 +1,5 @@
 import { Context, SessionFlavor } from 'grammy';
+import { ConversationFlavor } from '@grammyjs/conversations';
 
 export interface SessionGrammy {
   location?:
@@ -18,6 +19,9 @@ export interface SessionGrammy {
 }
 
 export type ContextGrammy = Context & SessionFlavor<SessionGrammy>;
+
+export type ConversationContext = Context & ConversationFlavor;
+export type MyConversation = Conversation<ConversationContext>;
 
 export interface BotContext extends Context {
   session: SessionData;

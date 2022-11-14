@@ -4,7 +4,12 @@ import { helpMessage, reminderMessage, weatherMessage, welcomeMessage } from '..
 import { formatForecast } from '../helpers/helpers';
 import BusService from '../services/BusService';
 import WeatherService from '../services/WeatherService';
-import { MessageResponse, SessionGrammy } from '../types/types';
+import {
+  ConversationContext,
+  MessageResponse,
+  MyConversation,
+  SessionGrammy,
+} from '../types/types';
 
 export const commandStart = async (ctx: CommandContext<Context>): Promise<Message.TextMessage> => {
   return await ctx.reply(welcomeMessage, { parse_mode: 'MarkdownV2' });
@@ -90,6 +95,23 @@ export const onGetForecast = async (ctx: Context): Promise<Message.TextMessage |
   }
 
   return await ctx.reply(message, { parse_mode: 'Markdown' });
+};
+
+export const createNewReminder = async (
+  conversation: MyConversation,
+  ctx: ConversationContext
+): Promise<Message.TextMessage | undefined> => {
+  const userID = ctx.update.message?.from?.id;
+  const userName = ctx.update.message?.from?.first_name;
+
+  await ctx.reply('Dime el nombre del recordatorio');
+  const name = await conversation.waitFor(':text');
+
+  await ctx.reply('Dime el valor del recordatorio');
+  const value = await conversation.waitFor(':text');
+
+  console.log(name.update.message.text, value.update.message.text);
+  return ctx.reply('todo ok!');
 };
 
 // // TODO: fix this
