@@ -1,6 +1,7 @@
 import { CommandContext, Context, Keyboard, SessionFlavor } from 'grammy';
 import { Message } from 'grammy/out/types';
 import { helpMessage, reminderMessage, weatherMessage, welcomeMessage } from '../data/variables';
+import { insertReminderIntoDatabase } from '../database/database';
 import { formatForecast } from '../helpers/helpers';
 import BusService from '../services/BusService';
 import WeatherService from '../services/WeatherService';
@@ -110,43 +111,12 @@ export const createNewReminder = async (
   await ctx.reply('Dime el valor del recordatorio');
   const value = await conversation.waitFor(':text');
 
-  console.log(name.update.message.text, value.update.message.text);
-  return ctx.reply('todo ok!');
+  await insertReminderIntoDatabase(
+    userName,
+    userID,
+    name.update.message.text,
+    value.update.message.text
+  );
+
+  return ctx.reply('¡Recordatorio añadido correctamente\\!', { parse_mode: 'MarkdownV2' });
 };
-
-// // TODO: fix this
-// // https://github.com/telegraf/telegraf/issues/705
-// export const createNewReminder = async (
-//   ctx: BotContext
-// ): Promise<Message.TextMessage | undefined> => {
-//   const context = ctx as typeof ctx & MessageResponse;
-//   return await context.reply('Crear un recordatorio');
-
-//   // const userId = context.update.message.from.id;
-//   // const userName = context.update.message.from.first_name;
-//   /*
-//   await context.reply(
-//     'Escoge una opción',
-//     Markup.inlineKeyboard([
-//       [Markup.button.callback('Nombre del recordatorio', 'Name')],
-//       [Markup.button.callback('Contenido del recordatorio', 'Value')],
-//     ])
-//   );
-//   */
-
-//   /*
-//   if (context.message.text.length > 0) {
-//     const newReminder = new Reminder({
-//       userName,
-//       botUserId: userId,
-//       reminderName: context.message.text,
-//       reminderValue: context.message.text,
-//       isActive: true,
-//     });
-//     await newReminder.save();
-
-//     return await context.reply('Recordatorio creado!');
-//   }
-//   */
-//   // return await context.reply('Por favor, introduce datos correctos');
-// };
