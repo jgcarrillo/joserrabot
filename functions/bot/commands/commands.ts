@@ -1,8 +1,10 @@
-import { CommandContext, Context, Keyboard } from 'grammy';
+import { CommandContext, Context, Keyboard, SessionFlavor } from 'grammy';
 import { Message } from 'grammy/out/types';
 import { helpMessage, reminderMessage, weatherMessage, welcomeMessage } from '../data/variables';
+import { formatForecast } from '../helpers/helpers';
 import BusService from '../services/BusService';
-import { MessageResponse } from '../types/types';
+import WeatherService from '../services/WeatherService';
+import { MessageResponse, SessionGrammy } from '../types/types';
 
 export const commandStart = async (ctx: CommandContext<Context>): Promise<Message.TextMessage> => {
   return await ctx.reply(welcomeMessage, { parse_mode: 'MarkdownV2' });
@@ -64,50 +66,31 @@ export const commandNewLocation = async (
   return await ctx.reply(weatherMessage, { reply_markup: keyboard });
 };
 
-// import { Context, Markup } from 'telegraf';
-// import { Message } from 'telegraf/typings/core/types/typegram';
-// import { reminderMessage, weatherMessage } from '../data/variables';
-// import BusService from '../services/BusService';
-// import { checkForMessage } from '../on/on';
-// import { BotContext, MessageResponse } from '../types/types';
+export const onGetForecast = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
+  const context = ctx as typeof ctx & SessionFlavor<SessionGrammy>;
 
-// export const getInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
-//   const context = ctx as typeof ctx & { message: string };
+  if (context.session.location?.latitude === 0 && context.session.location.longitude === 0) {
+    return await ctx.reply(
+      'Por favor, prueba antes usando el comando /tiempo y mandando tu localización.'
+    );
+  }
+  const lat = context.session.location?.latitude;
+  const long = context.session.location?.longitude;
+  const city = context.session.location?.city;
+  const country = context.session.location?.country;
 
-//   if (context.message.chat.type === 'private') {
-//     return await ctx.reply('ℹ Necesitas estar en un grupo para crear un link de invitación ℹ');
-//   }
+  const weatherService = new WeatherService();
+  const { data } = await weatherService.getForecast(lat, long);
 
-//   const res = await ctx.telegram.createChatInviteLink(context.message.chat.id);
-//   return await ctx.reply(`Aquí tienes tu invitación: ${res.invite_link}`);
-// };
+  // I need to set the -19 because Telegram doesn't support too long messages
+  // Anyway, the API response includes 5 days forecast
+  let message = `La previsión para ${city}, ${country} es:\n\n`;
+  for (let i = 0; i < data.list.length - 19; i++) {
+    message += formatForecast(data, i);
+  }
 
-// export const setReminder = async (ctx: Context): Promise<Message.TextMessage> => {
-//   return await ctx.reply(reminderMessage, { parse_mode: 'Markdown' });
-// };
-
-// export const getWeatherMessage = async (ctx: Context): Promise<Message.TextMessage> => {
-//   return await ctx.reply(
-//     weatherMessage,
-//     Markup.keyboard([Markup.button.locationRequest('Send location')]).resize()
-//   );
-// };
-
-// export const getBus = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
-//   const busService = new BusService(undefined, undefined, '44.A.1');
-
-//   try {
-//     const { data } = await busService.getDataByLine();
-//     return await ctx.reply(`La ruta elegida es: ${data[0].id} - ${data[0].name}`);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// export const getNewLocation = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
-//   // Check for message again because I need to check if '/nuevaubicacion' exists in the message context
-//   return await checkForMessage(ctx);
-// };
+  return await ctx.reply(message, { parse_mode: 'Markdown' });
+};
 
 // // TODO: fix this
 // // https://github.com/telegraf/telegraf/issues/705
@@ -144,14 +127,4 @@ export const commandNewLocation = async (
 //   }
 //   */
 //   // return await context.reply('Por favor, introduce datos correctos');
-// };
-
-// export const listReminders = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
-//   const context = ctx as typeof ctx & MessageResponse;
-//   return await context.reply('Listado de los recordatorios para el usuario');
-// };
-
-// export const deleteReminder = async (ctx: BotContext): Promise<Message.TextMessage | undefined> => {
-//   const context = ctx as typeof ctx & MessageResponse;
-//   return await context.reply('Eliminar alguno de los siguientes recordatorios');
 // };

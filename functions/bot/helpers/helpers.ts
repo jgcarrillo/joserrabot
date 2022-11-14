@@ -1,5 +1,7 @@
 import { ApiForecastResponse } from '../types/types';
 import WeatherService from '../services/WeatherService';
+import { Context, Keyboard } from 'grammy';
+import { Message } from 'grammy/out/types';
 
 export const formatForecast = (data: ApiForecastResponse, index: number): string => {
   // to add the year simply add ${data.list[index].dt_txt.substring(0, 4)}
@@ -14,4 +16,12 @@ export const formatForecast = (data: ApiForecastResponse, index: number): string
   )}`;
 
   return `${dateAndHourFormat}: *${tempFormat}*, ${weatherIconFormat}\n`;
+};
+
+export const createKeyboard = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
+  const keyboard = new Keyboard().text('/prevision').text('/nuevaubicacion').oneTime().resized();
+  return await ctx.reply(
+    'Aquí tienes tu consulta. También tienes otros comandos disponibles en el menú de abajo.',
+    { reply_markup: keyboard }
+  );
 };

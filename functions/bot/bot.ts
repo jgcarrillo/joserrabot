@@ -1,4 +1,4 @@
-import { Bot } from 'grammy';
+import { Bot, session } from 'grammy';
 import * as dotenv from 'dotenv';
 import {
   commandDeleteReminder,
@@ -10,8 +10,10 @@ import {
   commandNewLocation,
   commandSetReminder,
   commandStart,
+  onGetForecast,
 } from './commands/commands';
-import { onCheckForTextMessages, onGetLocation } from './on/on';
+import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/on';
+import { ContextGrammy, SessionGrammy } from './types/types';
 
 dotenv.config();
 
@@ -20,7 +22,15 @@ if (process.env.BOT_TOKEN === undefined) {
 }
 
 const token: string = process.env.BOT_TOKEN;
-const bot = new Bot(token);
+const bot = new Bot<ContextGrammy>(token);
+
+const initialSession = (): SessionGrammy => {
+  return {
+    location: { latitude: 0, longitude: 0, city: '', country: '', icon: '', temp: 0 },
+    reminderData: { reminderName: '', reminderValue: '' },
+  };
+};
+bot.use(session({ initial: initialSession }));
 
 bot.command('start', async (ctx) => {
   await commandStart(ctx);
@@ -58,12 +68,20 @@ bot.command('nuevaubicacion', async (ctx) => {
   await commandNewLocation(ctx);
 });
 
+bot.command('prevision', async (ctx) => {
+  await onGetForecast(ctx);
+});
+
 bot.on('message:location', async (ctx) => {
   await onGetLocation(ctx);
 });
 
 bot.on('message:text', async (ctx) => {
   await onCheckForTextMessages(ctx);
+});
+
+bot.on(':new_chat_members', async (ctx) => {
+  await onGetUserGrettings(ctx);
 });
 
 bot.start().catch((err) => console.log(err));

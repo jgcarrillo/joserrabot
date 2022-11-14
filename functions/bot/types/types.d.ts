@@ -1,6 +1,6 @@
-import { Context } from 'telegraf';
+import { Context, SessionFlavor } from 'grammy';
 
-export interface SessionData {
+export interface SessionGrammy {
   location?:
     | {
         latitude: number;
@@ -12,10 +12,12 @@ export interface SessionData {
       }
     | undefined;
   reminderData?: {
-    name?: string;
-    value?: string;
+    reminderName: string;
+    reminderValue: string;
   };
 }
+
+export type ContextGrammy = Context & SessionFlavor<SessionGrammy>;
 
 export interface BotContext extends Context {
   session: SessionData;
