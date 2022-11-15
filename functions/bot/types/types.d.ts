@@ -23,10 +23,6 @@ export type ContextGrammy = Context & SessionFlavor<SessionGrammy>;
 export type ConversationContext = Context & ConversationFlavor;
 export type MyConversation = Conversation<ConversationContext>;
 
-export interface BotContext extends Context {
-  session: SessionData;
-}
-
 interface ApiWeatherResponse {
   coord: {
     lon: number;

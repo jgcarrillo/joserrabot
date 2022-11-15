@@ -48,7 +48,7 @@ export const commandSetReminder = async (ctx: Context): Promise<Message.TextMess
 
 export const commandGetWeatherMessage = async (ctx: Context): Promise<Message.TextMessage> => {
   const keyboard = new Keyboard().requestLocation('Manda tu localización').row().resized();
-  return await ctx.reply(weatherMessage, { reply_markup: keyboard });
+  return await ctx.reply(weatherMessage, { reply_markup: keyboard, parse_mode: 'MarkdownV2' });
 };
 
 export const commandgetListOfReminders = async (
@@ -118,5 +118,5 @@ export const createNewReminder = async (
     value.update.message.text
   );
 
-  return ctx.reply('¡Recordatorio añadido correctamente\\!', { parse_mode: 'MarkdownV2' });
+  return await ctx.reply('¡Recordatorio añadido correctamente\\!', { parse_mode: 'MarkdownV2' });
 };

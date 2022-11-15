@@ -47,20 +47,20 @@ bot.command('help', async (ctx) => {
   await commandHelp(ctx);
 });
 
-bot.command('bus', async (ctx) => {
-  await commandGetBus(ctx);
-});
-
-bot.command('invitar', async (ctx) => {
-  await commandGetInvitationLink(ctx);
+bot.command('tiempo', async (ctx) => {
+  await commandGetWeatherMessage(ctx);
 });
 
 bot.command('recordatorio', async (ctx) => {
   await commandSetReminder(ctx);
 });
 
-bot.command('tiempo', async (ctx) => {
-  await commandGetWeatherMessage(ctx);
+bot.command('bus', async (ctx) => {
+  await commandGetBus(ctx);
+});
+
+bot.command('invitar', async (ctx) => {
+  await commandGetInvitationLink(ctx);
 });
 
 bot.command('crear', async (ctx) => {

@@ -74,7 +74,7 @@ export const onCheckForTextMessages = async (
   // Probably uncomment this line below if you want to use the bot in a group
   // otherwise the bot automatically reply every time you send a message different from
   // a location or /nuevaubicacion command
-  return await context.reply(defaultMessage);
+  return await context.reply(defaultMessage, { parse_mode: 'MarkdownV2' });
 };
 
 export const onGetUserGrettings = async (

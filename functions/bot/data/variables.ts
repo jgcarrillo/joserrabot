@@ -1,16 +1,17 @@
-export const welcomeMessage = `¡Bienvenido\\!
-Soy el *joserrabot* 💪
+export const welcomeMessage = `*¡Bienvenido\\!*
+
+Soy el *Joserrabot* 💪
 A través de este bot podrás:
 
-Conocer los horarios de los autobuses de Murcia 🚌
-Conocer el estado del tiempo ☀
-Establecer avisos personalizados 🎂
+\\- Conocer el _estado del tiempo_ ☀
+\\- Conocer los _horarios de los autobuses_ de Murcia 🚌
+\\- Establecer _avisos personalizados_ 🎂
 
 Si quieres conocer los comandos con
 más detalle, usa /help 🆘`;
 
 export const helpMessage = `
-🆘 Si no sabes cómo usar el *joserrabot*
+🆘 Si no sabes cómo usar el *Joserrabot*
 aquí tienes una lista de los comandos
 más importantes 🆘:
 
@@ -29,14 +30,14 @@ más importantes 🆘:
 export const reminderMessage = `
 *✅ Recordatorios ✅*
 
-¿Qué quieres hacer?:
-/crear \\- Crear un nuevo recordatorio
-/listar \\- Listar todos mis recordatorios
-/eliminar \\- Eliminar un recordatorio
+*¿Qué quieres hacer?:*
+/crear \\- Crear un _nuevo_ recordatorio
+/listar \\- _Listar_ todos mis recordatorios
+/eliminar \\- _Eliminar_ un recordatorio
 `;
 
 export const birthdaysMessage = `
-*🎂 cumpleaños 🎂*
+🎂 *Cumpleaños* 🎂
 
 *Joserra* - 30 de octubre de 1991
 *Jorge* - 26 de abril de 1991
@@ -49,14 +50,17 @@ export const birthdaysMessage = `
 *Toni* - `;
 
 export const weatherMessage = `
-Puedo decirte qué tiempo hace en cualquier
-parte del mundo, así como mostrarte la
-previsión futura.
+Puedo decirte *qué tiempo hace en cualquier
+parte del mundo*\\, así como mostrarte la
+*previsión* futura\\.
 
-🚩 Para empezar, envíame una ubicación o
-escríbeme el nombre de la ciudad y el país
-con el formato ciudad/tiempo, por ejemplo:
-Madrid/tiempo o Roma/tiempo.
+🚩 *Para empezar* 🚩
+
+Envíame una *ubicación* o
+escríbeme el *nombre de la ciudad* y el *país*
+con el formato _ciudad/tiempo_\\, por ejemplo\\:
+
+_Madrid/tiempo_ o _Roma/tiempo_\\.
 `;
 
 export const forecastMessage = (
@@ -70,8 +74,9 @@ export const forecastMessage = (
 Para una previsión del tiempo más detallada, usa uno de los comandos que aparecen en el Menú del Bot de abajo.`;
 };
 
-export const defaultMessage = `
-El Joserrabot no es capaz de entener lo que dices, prueba a escribir /start para ver los comandos disponibles.
+export const defaultMessage = `⚡ El Joserrabot *no es capaz de entener lo que dices* ⚡
 
-Si estás intentando conocer el tiempo de algún lugar, revisa antes el comando /tiempo para ver el formato.
+Prueba a escribir /start para ver los _comandos disponibles_\\.
+
+Si estás intentando conocer _el tiempo de algún lugar_\\, revisa antes el comando /tiempo para ver el formato\\.
 `;
