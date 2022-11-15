@@ -107,10 +107,10 @@ export const createNewReminder = async (
   const userID = ctx.update.message?.from?.id;
   const userName = ctx.update.message?.from?.first_name;
 
-  await ctx.reply('Dime el nombre del recordatorio');
+  await ctx.reply('Dime el *nombre* del recordatorio', { parse_mode: 'MarkdownV2' });
   const name = await conversation.waitFor(':text');
 
-  await ctx.reply('Dime el valor del recordatorio');
+  await ctx.reply('Dime el *contenido* del recordatorio', { parse_mode: 'MarkdownV2' });
   const value = await conversation.waitFor(':text');
 
   await insertReminderIntoDatabase(

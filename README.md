@@ -23,7 +23,7 @@
 
 ### 🚩 Issues
 
-### 🚩 Issues
+### 🕸️ Netlify configuration
 
 ### 💛 Contact
 
