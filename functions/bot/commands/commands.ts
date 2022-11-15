@@ -55,7 +55,9 @@ export const commandgetListOfReminders = async (
   ctx: Context
 ): Promise<Message.TextMessage | undefined> => {
   const context = ctx as typeof ctx & MessageResponse;
-  return await context.reply('Listado de los recordatorios para el usuario');
+  return await context.reply('*Listado de los recordatorios para el usuario*', {
+    parse_mode: 'MarkdownV2',
+  });
 };
 
 export const commandDeleteReminder = async (
