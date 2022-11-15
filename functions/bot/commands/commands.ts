@@ -91,7 +91,7 @@ export const commandNewLocation = async (
   ctx: Context
 ): Promise<Message.TextMessage | undefined> => {
   const keyboard = new Keyboard().requestLocation('Manda tu localización').row().resized();
-  return await ctx.reply(weatherMessage, { reply_markup: keyboard });
+  return await ctx.reply(weatherMessage, { parse_mode: 'MarkdownV2', reply_markup: keyboard });
 };
 
 export const onGetForecast = async (ctx: Context): Promise<Message.TextMessage | undefined> => {
