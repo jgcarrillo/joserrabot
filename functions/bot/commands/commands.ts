@@ -1,7 +1,14 @@
 import { CommandContext, Context, Keyboard, SessionFlavor } from 'grammy';
 import { Message } from 'grammy/out/types';
-import { helpMessage, reminderMessage, weatherMessage, welcomeMessage } from '../data/variables';
+import {
+  helpMessage,
+  notHaveReminders,
+  reminderMessage,
+  weatherMessage,
+  welcomeMessage,
+} from '../data/variables';
 import { insertReminderIntoDatabase } from '../database/database';
+import Reminder from '../database/models/Reminder';
 import { formatForecast } from '../helpers/helpers';
 import BusService from '../services/BusService';
 import WeatherService from '../services/WeatherService';
@@ -55,7 +62,20 @@ export const commandgetListOfReminders = async (
   ctx: Context
 ): Promise<Message.TextMessage | undefined> => {
   const context = ctx as typeof ctx & MessageResponse;
-  return await context.reply('*Listado de los recordatorios para el usuario*', {
+
+  const userID = ctx.update.message?.from?.id;
+  const userReminders = await Reminder.find({ botUserId: userID }); // TODO: tipo para Reminder
+
+  if (userReminders.length === 0) {
+    return await ctx.reply(notHaveReminders, { parse_mode: 'MarkdownV2' });
+  }
+
+  let message = '📆 Estos son tus recordatorios 📆\n\n';
+  for (const reminder of userReminders) {
+    message += `*\\- ${reminder.reminderName}:* ${reminder.reminderValue}\n`;
+  }
+
+  return await context.reply(message, {
     parse_mode: 'MarkdownV2',
   });
 };
@@ -107,10 +127,14 @@ export const createNewReminder = async (
   const userID = ctx.update.message?.from?.id;
   const userName = ctx.update.message?.from?.first_name;
 
-  await ctx.reply('Dime el *nombre* del recordatorio', { parse_mode: 'MarkdownV2' });
+  await ctx.reply('Dime el *nombre* del recordatorio', {
+    parse_mode: 'MarkdownV2',
+  });
   const name = await conversation.waitFor(':text');
 
-  await ctx.reply('Dime el *contenido* del recordatorio', { parse_mode: 'MarkdownV2' });
+  await ctx.reply('Dime el *contenido* del recordatorio', {
+    parse_mode: 'MarkdownV2',
+  });
   const value = await conversation.waitFor(':text');
 
   await insertReminderIntoDatabase(

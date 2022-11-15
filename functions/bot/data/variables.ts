@@ -80,3 +80,7 @@ Prueba a escribir /start para ver los _comandos disponibles_\\.
 
 Si estás intentando conocer _el tiempo de algún lugar_\\, revisa antes el comando /tiempo para ver el formato\\.
 `;
+
+export const notHaveReminders = `⚠ Todavía no tienes recordatorios ⚠
+
+Prueba a añadir unos cuantos usando el comando /crear`;
