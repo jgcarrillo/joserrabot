@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon build/bot.js",
-    "dev": "nodemon functions/bot/bot.ts",
+    "dev": "nodemon netlify/functions/bot/bot.ts",
     "clean": "rimraf build",
     "lint": "eslint --fix functions/bot --ext .ts,.json",
     "format": "prettier --write functions/bot"
