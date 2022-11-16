@@ -18,8 +18,7 @@ import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
-import { HandlerEvent } from '@netlify/functions';
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -177,7 +176,7 @@ bot.on(':new_chat_members', async (ctx) => {
   await onGetUserGrettings(ctx);
 });
 
-// bot.start().catch((err) => console.log(err));
+bot.start().catch((err) => console.log(err));
 
 module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
