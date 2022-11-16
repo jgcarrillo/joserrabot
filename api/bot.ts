@@ -183,7 +183,7 @@ module.exports = async (request: VercelRequest, response: VercelResponse): Promi
   try {
     const { body } = request;
 
-    await bot.handleUpdate(JSON.parse(body));
+    await bot.handleUpdate(body);
     response.status(200).json({ statusCode: 200, body: '' });
   } catch (err) {
     console.log(err);
