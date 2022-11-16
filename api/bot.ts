@@ -179,7 +179,7 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-export default async function handler(request: VercelRequest): Promise<any> {
+export default async (request: VercelRequest): Promise<any> => {
   try {
     const { body } = request;
 
@@ -189,7 +189,7 @@ export default async function handler(request: VercelRequest): Promise<any> {
     console.log(err);
     return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
   }
-}
+};
 
 /*
 export const handler = async (event: HandlerEvent): Promise<any> => {
