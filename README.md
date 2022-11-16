@@ -15,7 +15,7 @@
 
 ### ✨ Explanation
 
-If you want to start to chat with the bot, simply search in Telegram for _@larguebot_ or _@joserrabot_.
+If you want to start to chat with the bot, simply search in Telegram for _@larguebot_ or _@joserrabot_. At the moment, the bot **only support private chats**, so you won't be able to add the bot to a group chat. To change that, go to `BotFather`, select your bot and go to _Bot Settings_ and then _Allow Groups_.
 
 ### 🚀 Installation
 
@@ -25,6 +25,7 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 - Database of reminders with [Mongo Atlas Database](https://www.mongodb.com/atlas/database)
 - Conversations with [GrammY Conversations](https://grammy.dev/plugins/conversations.html#simple-example)
 - Internal [session storage](https://grammy.dev/plugins/session.html#sessions-and-storing-data-built-in)
+- User authentication with custom password
 
 ### 🚩 Issues
 

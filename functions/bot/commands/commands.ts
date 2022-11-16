@@ -20,6 +20,8 @@ import {
 } from '../types/types';
 
 export const commandStart = async (ctx: CommandContext<Context>): Promise<Message.TextMessage> => {
+  console.log(ctx.message?.chat.id); // <-- Used to display the chat id at first
+
   return await ctx.reply(welcomeMessage, { parse_mode: 'MarkdownV2' });
 };
 
@@ -46,10 +48,10 @@ export const commandGetInvitationLink = async (ctx: Context): Promise<Message.Te
   }
 
   const link = await ctx.exportChatInviteLink();
-  return await ctx.reply(`Aquí tienes tu link de invitación: ${link}`);
+  return await ctx.reply(`Aquí tienes tu link de invitación ➡ ${link}`);
 };
 
-export const commandSetReminder = async (ctx: Context): Promise<Message.TextMessage> => {
+export const commandReminderMenu = async (ctx: Context): Promise<Message.TextMessage> => {
   return await ctx.reply(reminderMessage, { parse_mode: 'MarkdownV2' });
 };
 

@@ -31,6 +31,8 @@ interface ApiWeatherResponse {
   main: Main;
   sys: SystemData;
   name: string;
+  cod: string;
+  message: string;
 }
 
 interface Main {

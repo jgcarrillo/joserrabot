@@ -9,10 +9,10 @@ import {
   commandGetWeatherMessage,
   commandHelp,
   commandNewLocation,
-  commandSetReminder,
   commandStart,
   commandCreateNewReminder,
   onGetForecast,
+  commandReminderMenu,
 } from './commands/commands';
 import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/on';
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
@@ -80,7 +80,7 @@ bot.command('recordatorio', async (ctx) => {
       'Introduce la contraseña mediante el comando /password para desbloquear el bot'
     );
   }
-  await commandSetReminder(ctx);
+  await commandReminderMenu(ctx);
 });
 
 bot.command('bus', async (ctx) => {
@@ -164,6 +164,7 @@ bot.on('message:text', async (ctx) => {
   await onCheckForTextMessages(ctx);
 });
 
+// TODO: at the moment @joserrabot is not allowed for groups
 bot.on(':new_chat_members', async (ctx) => {
   if (!ctx.session.password.isPasswordCorrect) {
     return await ctx.reply(

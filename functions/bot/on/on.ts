@@ -66,6 +66,10 @@ export const onCheckForTextMessages = async (
         });
       } catch (err) {
         console.log(err);
+
+        return await ctx.reply('Por favor, asegúrate de introducir bien el *nombre de la ciudad*', {
+          parse_mode: 'MarkdownV2',
+        });
       }
     }
   }
