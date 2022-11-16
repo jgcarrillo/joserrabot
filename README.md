@@ -33,6 +33,7 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 - Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
 - Info about webhook: `https://api.telegram.org/bot{bot-key}/getWebhookInfo`
+- Delete webhook: `https://api.telegram.org/bot{bot-key}/deleteWebhook`
 
 ### 💛 Contact
 

@@ -4,7 +4,7 @@ import Reminder from './models/Reminder';
 
 dotenv.config();
 
-const dbURI = `${process.env.MONGO_URI}`;
+const dbURI = `${process.env.MONGO_URI}`; // <-- Vercel integration with Atlas
 
 (async () => {
   try {
