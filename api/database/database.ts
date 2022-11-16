@@ -4,7 +4,7 @@ import Reminder from './models/Reminder';
 
 dotenv.config();
 
-const dbURI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.wei3mn3.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
+const dbURI = `${process.env.MONGO_URI}`;
 
 (async () => {
   try {

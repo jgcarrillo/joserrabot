@@ -10,7 +10,7 @@
 - [🚀 Installation](#-installation)
 - [🎨 Features](#-features)
 - [🚩 Issues](#-issues)
-- [🕸️ Netlify configuration](#-netlify-configuration)
+- [🕸️ Vercel configuration](#-vercel-configuration)
 - [💛 Contact](#-contact)
 
 ### ✨ Explanation
@@ -29,7 +29,7 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 ### 🚩 Issues
 
-### 🕸️ Netlify configuration
+### 🕸️ Vercel Configuration
 
 - Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
 - Info about webhook: `https://api.telegram.org/bot{bot-key}/getWebhookInfo`
