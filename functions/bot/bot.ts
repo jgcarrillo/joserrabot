@@ -40,6 +40,7 @@ bot.use(conversations());
 
 bot.use(createConversation(commandCreateNewReminder));
 
+// Bot security (user) is controlled by this function
 bot.command('password', async (ctx) => {
   const password = ctx.match;
 

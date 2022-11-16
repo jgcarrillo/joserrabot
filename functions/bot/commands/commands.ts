@@ -40,6 +40,7 @@ export const commandGetBus = async (ctx: Context): Promise<Message.TextMessage |
   }
 };
 
+// TODO: this not work at the moment because @joserrabot is not allowed for bot
 export const commandGetInvitationLink = async (ctx: Context): Promise<Message.TextMessage> => {
   const context = ctx as typeof ctx & { message: string };
 
