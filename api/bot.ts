@@ -19,7 +19,7 @@ import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
 import { HandlerEvent } from '@netlify/functions';
-import type { VercelRequest } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -179,15 +179,18 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-module.exports = async (request: VercelRequest): Promise<any> => {
+module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
     const { body } = request;
 
     await bot.handleUpdate(JSON.parse(body));
-    return { statusCode: 200, body: '' };
+    response.status(200).json({ statusCode: 200, body: '' });
   } catch (err) {
     console.log(err);
-    return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
+
+    response
+      .status(400)
+      .json({ statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' });
   }
 };
 
