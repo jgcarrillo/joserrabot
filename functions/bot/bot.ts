@@ -18,7 +18,6 @@ import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
-import { HandlerEvent } from '@netlify/functions';
 
 dotenv.config();
 
@@ -178,12 +177,10 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-export const handler = async (event: HandlerEvent): Promise<any> => {
+exports.handler = async (event: any) => {
   try {
-    if (event.body !== null) {
-      await bot.handleUpdate(JSON.parse(event?.body));
-      return { statusCode: 200, body: '' };
-    }
+    await bot.handleUpdate(JSON.parse(event.body));
+    return { statusCode: 200, body: '' };
   } catch (e) {
     console.log(e);
     return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };

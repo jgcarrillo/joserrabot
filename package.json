@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon build/bot.js",
-    "dev": "nodemon netlify/functions/bot/bot.ts",
+    "dev": "nodemon functions/bot/bot.ts",
     "build": "netlify-lambda build functions",
     "tsc": "tsc",
     "clean": "rimraf build",
@@ -18,7 +18,6 @@
   "dependencies": {
     "@grammyjs/conversations": "^1.0.3",
     "@grammyjs/menu": "^1.1.2",
-    "@netlify/functions": "^1.3.0",
     "axios": "^1.1.2",
     "dotenv": "^16.0.3",
     "grammy": "^1.12.0",
