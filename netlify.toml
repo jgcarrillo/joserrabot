@@ -1,6 +1,6 @@
 [build]
   functions = "functions"
-  command = "netlify-lambda install && mkdir ./build"
+  command = "netlify-lambda install && npm run tsc"
 [template.environment]
   BOT_TOKEN = "Telegram bot token here"
 [[redirects]]
