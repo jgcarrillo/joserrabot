@@ -18,6 +18,8 @@ import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
+import { HandlerEvent } from '@netlify/functions';
+import type { VercelRequest } from '@vercel/node';
 
 dotenv.config();
 
@@ -177,12 +179,28 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-exports.handler = async (event: any) => {
+export default async (request: VercelRequest): Promise<any> => {
   try {
-    await bot.handleUpdate(JSON.parse(event.body));
+    const { body } = request;
+
+    await bot.handleUpdate(body);
     return { statusCode: 200, body: '' };
+  } catch (err) {
+    console.log(err);
+    return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
+  }
+};
+
+/*
+export const handler = async (event: HandlerEvent): Promise<any> => {
+  try {
+    if (event.body !== null) {
+      await bot.handleUpdate(JSON.parse(event.body));
+      return { statusCode: 200, body: '' };
+    }
   } catch (e) {
     console.log(e);
     return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
   }
 };
+*/

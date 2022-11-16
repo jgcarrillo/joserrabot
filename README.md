@@ -31,6 +31,9 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 ### 🕸️ Netlify configuration
 
+- Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
+- Info about webhook: `https://api.telegram.org/bot<YOUR-BOT-TOKEN>/getWebhookInfo`
+
 ### 💛 Contact
 
 If you have some doubts or need to ask something about the project, feel free to reach me here:
