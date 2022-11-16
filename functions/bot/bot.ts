@@ -179,7 +179,7 @@ bot.on(':new_chat_members', async (ctx) => {
 
 exports.handler = async (event: any) => {
   try {
-    await bot.handleUpdate(JSON.parse(event.body));
+    // await bot.handleUpdate(JSON.parse(event.body));
     return { statusCode: 200, body: '' };
   } catch (e) {
     console.log(e);

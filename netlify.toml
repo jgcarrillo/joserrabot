@@ -7,3 +7,5 @@
   from = "/*"
   to = "/.netlify/functions/bot/:splat"
   status = 200
+[functions]
+  external_node_modules = ["mongodb"]
