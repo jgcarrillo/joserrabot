@@ -177,7 +177,7 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-exports.handler = async (event: any) => {
+export const handler = async (event: any): Promise<any> => {
   try {
     await bot.handleUpdate(JSON.parse(event.body));
     return { statusCode: 200, body: '' };
