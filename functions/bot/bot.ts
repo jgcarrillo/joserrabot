@@ -11,12 +11,13 @@ import {
   commandNewLocation,
   commandSetReminder,
   commandStart,
-  createNewReminder,
+  commandCreateNewReminder,
   onGetForecast,
 } from './commands/commands';
 import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/on';
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
+import { userAuthentication } from './security/userSecurity';
 
 dotenv.config();
 
@@ -30,68 +31,145 @@ const bot = new Bot<ContextGrammy & ConversationContext>(token);
 const initialSession = (): SessionGrammy => {
   return {
     location: { latitude: 0, longitude: 0, city: '', country: '', icon: '', temp: 0 },
-    reminderData: { reminderName: '', reminderValue: '' },
+    password: { value: process.env.BOT_PASSWORD, isPasswordCorrect: false },
   };
 };
 bot.use(session({ initial: initialSession }));
 
 bot.use(conversations());
 
-bot.use(createConversation(createNewReminder));
+bot.use(createConversation(commandCreateNewReminder));
+
+bot.command('password', async (ctx) => {
+  const password = ctx.match;
+
+  await userAuthentication(ctx, password);
+});
 
 bot.command('start', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot',
+      { parse_mode: 'MarkdownV2' }
+    );
+  }
   await commandStart(ctx);
 });
 
 bot.command('help', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandHelp(ctx);
 });
 
 bot.command('tiempo', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandGetWeatherMessage(ctx);
 });
 
 bot.command('recordatorio', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandSetReminder(ctx);
 });
 
 bot.command('bus', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandGetBus(ctx);
 });
 
 bot.command('invitar', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandGetInvitationLink(ctx);
 });
 
 bot.command('crear', async (ctx) => {
-  await ctx.conversation.enter('createNewReminder');
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
+  await ctx.conversation.enter('commandCreateNewReminder');
 });
 
 bot.command('listar', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandgetListOfReminders(ctx);
 });
 
 bot.command('eliminar', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandDeleteReminder(ctx);
 });
 
 bot.command('nuevaubicacion', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await commandNewLocation(ctx);
 });
 
 bot.command('prevision', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await onGetForecast(ctx);
 });
 
 bot.on('message:location', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await onGetLocation(ctx);
 });
 
 bot.on('message:text', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await onCheckForTextMessages(ctx);
 });
 
 bot.on(':new_chat_members', async (ctx) => {
+  if (!ctx.session.password.isPasswordCorrect) {
+    return await ctx.reply(
+      'Introduce la contraseña mediante el comando /password para desbloquear el bot'
+    );
+  }
   await onGetUserGrettings(ctx);
 });
 

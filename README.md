@@ -15,11 +15,16 @@
 
 ### ✨ Explanation
 
-**joserrabot** is available on **Telegram** by searching _@larguebot_.
+If you want to start to chat with the bot, simply search in Telegram for _@larguebot_ or _@joserrabot_.
 
 ### 🚀 Installation
 
 ### 🎨 Features
+
+- Weather forecast with [Open Weather Map](https://openweathermap.org/)
+- Database of reminders with [Mongo Atlas Database](https://www.mongodb.com/atlas/database)
+- Conversations with [GrammY Conversations](https://grammy.dev/plugins/conversations.html#simple-example)
+- Internal [session storage](https://grammy.dev/plugins/session.html#sessions-and-storing-data-built-in)
 
 ### 🚩 Issues
 

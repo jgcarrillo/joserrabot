@@ -12,14 +12,13 @@ export interface SessionGrammy {
         temp: number;
       }
     | undefined;
-  reminderData?: {
-    reminderName: string;
-    reminderValue: string;
+  password: {
+    value: string | undefined;
+    isPasswordCorrect: boolean;
   };
 }
 
 export type ContextGrammy = Context & SessionFlavor<SessionGrammy>;
-
 export type ConversationContext = Context & ConversationFlavor;
 export type MyConversation = Conversation<ConversationContext>;
 

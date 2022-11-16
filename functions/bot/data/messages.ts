@@ -25,7 +25,10 @@ más importantes 🆘:
 /bus \\- Horarios de autobuses
 
 *Comandos de gestión*
-/invitar \\- Genera un link de invitación`;
+/invitar \\- Genera un link de invitación
+
+*Comandos privados*
+/password \\- Introduce la contraseña para desbloquear el bot`;
 
 export const reminderMessage = `
 *✅ Recordatorios ✅*
@@ -56,10 +59,8 @@ parte del mundo*\\, así como mostrarte la
 
 🚩 *Para empezar* 🚩
 
-Envíame una *ubicación* o
-escríbeme el *nombre de la ciudad* y el *país*
-con el formato _ciudad/tiempo_\\, por ejemplo\\:
-
+Envíame una *ubicación* o escríbeme el *nombre
+de la ciudad* en el siguiente formato\\:
 _Madrid/tiempo_ o _Roma/tiempo_\\.
 `;
 

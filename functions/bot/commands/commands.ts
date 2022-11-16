@@ -6,7 +6,7 @@ import {
   reminderMessage,
   weatherMessage,
   welcomeMessage,
-} from '../data/variables';
+} from '../data/messages';
 import { insertReminderIntoDatabase } from '../database/database';
 import Reminder from '../database/models/Reminder';
 import { formatForecast } from '../helpers/helpers';
@@ -120,7 +120,7 @@ export const onGetForecast = async (ctx: Context): Promise<Message.TextMessage |
   return await ctx.reply(message, { parse_mode: 'Markdown' });
 };
 
-export const createNewReminder = async (
+export const commandCreateNewReminder = async (
   conversation: MyConversation,
   ctx: ConversationContext
 ): Promise<Message.TextMessage | undefined> => {
@@ -137,12 +137,7 @@ export const createNewReminder = async (
   });
   const value = await conversation.waitFor(':text');
 
-  await insertReminderIntoDatabase(
-    userName,
-    userID,
-    name.update.message.text,
-    value.update.message.text
-  );
+  await insertReminderIntoDatabase(userName, userID, name.message.text, value.message.text);
 
   return await ctx.reply('¡Recordatorio añadido correctamente\\!', { parse_mode: 'MarkdownV2' });
 };

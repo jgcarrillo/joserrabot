@@ -1,6 +1,6 @@
 import { Context, SessionFlavor } from 'grammy';
 import { Message } from 'grammy/out/types';
-import { defaultMessage, forecastMessage } from '../data/variables';
+import { defaultMessage, forecastMessage } from '../data/messages';
 import { createKeyboard } from '../helpers/helpers';
 import Security from '../security/Security';
 import WeatherService from '../services/WeatherService';
@@ -80,7 +80,7 @@ export const onCheckForTextMessages = async (
 export const onGetUserGrettings = async (
   ctx: Context
 ): Promise<Message.TextMessage | undefined> => {
-  const security = new Security(-846526315);
+  const security = new Security(-846526315); // <-- Add here the chat IDs allowed
   const isChatInWhitelist = security.isChatInTheWhitelist(ctx.msg?.chat.id);
 
   let greeting = '';
