@@ -175,10 +175,9 @@ bot.on(':new_chat_members', async (ctx) => {
   await onGetUserGrettings(ctx);
 });
 
-bot.start().catch((err) => console.log(err));
+// bot.start().catch((err) => console.log(err));
 
-/*
-exports.handler = async (event) => {
+exports.handler = async (event: any) => {
   try {
     await bot.handleUpdate(JSON.parse(event.body));
     return { statusCode: 200, body: '' };
@@ -187,4 +186,3 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
   }
 };
-*/
