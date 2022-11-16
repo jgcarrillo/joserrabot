@@ -179,11 +179,11 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // bot.start().catch((err) => console.log(err));
 
-export default async (request: VercelRequest): Promise<any> => {
+module.exports = async (request: VercelRequest): Promise<any> => {
   try {
     const { body } = request;
 
-    await bot.handleUpdate(body);
+    await bot.handleUpdate(JSON.parse(body));
     return { statusCode: 200, body: '' };
   } catch (err) {
     console.log(err);
