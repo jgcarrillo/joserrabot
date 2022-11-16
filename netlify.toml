@@ -1,3 +1,6 @@
+[build]
+  command = "npm run build"
+  functions = "functions"
 [functions]
   external_node_modules = ["mongodb"]
 [[redirects]]
