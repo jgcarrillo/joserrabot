@@ -1,5 +1,5 @@
 import { Bot, session } from 'grammy';
-import './database/database';
+import './api/database/database';
 import * as dotenv from 'dotenv';
 import {
   commandDeleteReminder,
@@ -14,10 +14,10 @@ import {
   onGetForecast,
   commandReminderMenu,
 } from './commands/commands';
-import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/on';
-import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
+import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './api/on/on';
+import { ContextGrammy, ConversationContext, SessionGrammy } from './api/types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
-import { userAuthentication } from './security/userSecurity';
+import { userAuthentication } from './api/security/userSecurity';
 
 dotenv.config();
 
