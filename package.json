@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon build/bot.js",
     "dev": "nodemon api/bot.ts",
-    "tsc": "tsc",
+    "build": "tsc",
     "clean": "rimraf build",
     "lint": "eslint --fix api --ext .ts,.json",
     "format": "prettier --write api"
