@@ -19,6 +19,11 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 ### 🚀 Installation
 
+- `git clone`. Main and develop branches are currently the same.
+- Go to `bot.ts` and uncomment the `bot.start()` line.
+- Comment the code below `bot.start()`.
+- `npm run dev` to run development server (local).
+
 ### 🎨 Features
 
 - Weather forecast with [Open Weather Map](https://openweathermap.org/)
@@ -29,12 +34,22 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 ### 🚩 Issues
 
+⚠ **I CAN'T DEPLOY THE SERVER RIGHT NOW** ⚠
+
+For more information, there are some interesting links that may resolve the problem in a future or wait for a **better Vercel documentation in GrammY docs**.
+
+- [WerhookCallback functions](https://github.com/grammyjs/grammY/tree/main/src/convenience)
+- [Vercel Deno](https://github.com/vercel-community/deno)
+- [An example with Supabase](https://grammy.dev/hosting/supabase.html). Maybe I cant extrapolate to Vercel.
+
 ### 🕸️ Vercel Configuration
 
 - Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
 - Info about webhook: `https://api.telegram.org/bot{bot-key}/getWebhookInfo`
 - Delete webhook: `https://api.telegram.org/bot{bot-key}/deleteWebhook`
 - Set the webhook with Vercel: `curl -X POST https://api.telegram.org/bot{YOUR-BOT-TOKEN}/setWebhook -H "Content-type: application/json" -d '{"url": {"YOUR-DEPLOY-URL"}'`
+
+If some Headers are required, you can pass another with `-H "X-Telegram-Bot-Api-Secret-Token: <bot-token>"`
 
 ### 💛 Contact
 

@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node build/bot.js",
     "start": "nodemon build/bot.js",
     "dev": "nodemon ./api/bot.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "clean": "rimraf build",
     "lint": "eslint --fix ./api --ext .ts,.json",
     "format": "prettier --write ./api"
