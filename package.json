@@ -6,11 +6,11 @@
   "scripts": {
     "server": "node build/bot.js",
     "start": "nodemon build/bot.js",
-    "dev": "nodemon ./bot.ts",
+    "dev": "nodemon ./api/bot.ts",
     "build": "tsc",
     "clean": "rimraf build",
-    "lint": "eslint --fix . --ext .ts,.json",
-    "format": "prettier --write api"
+    "lint": "eslint --fix ./api --ext .ts,.json",
+    "format": "prettier --write ./api"
   },
   "keywords": [],
   "author": "",

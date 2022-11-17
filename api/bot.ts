@@ -18,6 +18,7 @@ import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -176,16 +177,15 @@ bot.on(':new_chat_members', async (ctx) => {
 });
 
 // Long Polling vs Webhooks (https://grammy.dev/guide/deployment-types.html#long-polling-vs-webhooks)
-bot.start().catch((err) => console.log(err));
+// Uncomment to develop environment
+// bot.start().catch((err) => console.log(err));
 
-/*
-const handleUpdate = webhookCallback(bot);
 module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
     const { body } = request;
 
     response.status(200).json({ statusCode: 200, body: '' });
-    return await handleUpdate(body);
+    return await bot.handleUpdate(body);
   } catch (err) {
     console.log(err);
 
@@ -194,4 +194,3 @@ module.exports = async (request: VercelRequest, response: VercelResponse): Promi
       .json({ statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' });
   }
 };
-*/
