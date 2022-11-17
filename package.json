@@ -6,9 +6,10 @@
   "scripts": {
     "start": "nodemon build/bot.js",
     "dev": "nodemon api/bot.ts",
+    "tsc": "tsc",
     "clean": "rimraf build",
-    "lint": "eslint --fix functions/bot --ext .ts,.json",
-    "format": "prettier --write functions/bot"
+    "lint": "eslint --fix api --ext .ts,.json",
+    "format": "prettier --write api"
   },
   "keywords": [],
   "author": "",

@@ -176,7 +176,8 @@ bot.on(':new_chat_members', async (ctx) => {
   await onGetUserGrettings(ctx);
 });
 
-bot.start().catch((err) => console.log(err));
+// Long Polling vs Webhooks (https://grammy.dev/guide/deployment-types.html#long-polling-vs-webhooks)
+// bot.start().catch((err) => console.log(err));
 
 module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
@@ -192,17 +193,3 @@ module.exports = async (request: VercelRequest, response: VercelResponse): Promi
       .json({ statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' });
   }
 };
-
-/*
-export const handler = async (event: HandlerEvent): Promise<any> => {
-  try {
-    if (event.body !== null) {
-      await bot.handleUpdate(JSON.parse(event.body));
-      return { statusCode: 200, body: '' };
-    }
-  } catch (e) {
-    console.log(e);
-    return { statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' };
-  }
-};
-*/
