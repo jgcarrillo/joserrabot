@@ -1,3 +1,4 @@
 {
-  "devCommand": "npm run server"
+  "devCommand": "npm run server",
+  "outputDirectory": "build"
 }
