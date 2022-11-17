@@ -35,6 +35,8 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 - Info about webhook: `https://api.telegram.org/bot{bot-key}/getWebhookInfo`
 - Delete webhook: `https://api.telegram.org/bot{bot-key}/deleteWebhook`
 
+- Set the webhook with Vercel: `curl -X POST https://api.telegram.org/bot{YOUR-BOT-TOKEN}/setWebhook -H "Content-type: application/json" -d '{"url": "{YOUR-DEPLOY-URL"}'`
+
 ### 💛 Contact
 
 If you have some doubts or need to ask something about the project, feel free to reach me here:
