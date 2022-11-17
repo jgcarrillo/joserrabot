@@ -18,7 +18,6 @@ import { onCheckForTextMessages, onGetLocation, onGetUserGrettings } from './on/
 import { ContextGrammy, ConversationContext, SessionGrammy } from './types/types';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { userAuthentication } from './security/userSecurity';
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -180,16 +179,4 @@ bot.on(':new_chat_members', async (ctx) => {
 // Uncomment to develop environment
 // bot.start().catch((err) => console.log(err));
 
-const handleUpdate = webhookCallback(bot, 'aws-lambda');
-module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
-  try {
-    const { body } = request;
-
-    // response.status(200).json({ statusCode: 200, body: '' });
-    return await handleUpdate(JSON.stringify(body)).catch((err: any) => console.log(err));
-  } catch (err) {
-    console.log(err);
-
-    // response.status(400).json({ statusCode: 400, body: 'This endpoint is meant for bot and telegram communication' });
-  }
-};
+export default webhookCallback(bot, 'http');
