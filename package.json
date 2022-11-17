@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "node build/bot.js",
     "start": "nodemon build/bot.js",
     "dev": "nodemon api/bot.ts",
     "build": "tsc",
