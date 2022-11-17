@@ -1,4 +1,4 @@
-import { Bot, session } from 'grammy';
+import { Bot, session, webhookCallback } from 'grammy';
 import './database/database';
 import * as dotenv from 'dotenv';
 import {
@@ -178,13 +178,14 @@ bot.on(':new_chat_members', async (ctx) => {
 
 // Long Polling vs Webhooks (https://grammy.dev/guide/deployment-types.html#long-polling-vs-webhooks)
 // bot.start().catch((err) => console.log(err));
+const handleUpdate = webhookCallback(bot);
 
 module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
     const { body } = request;
 
-    await bot.handleUpdate(body);
-    response.status(200).json({ statusCode: 200, body: '' });
+    // response.status(200).json({ statusCode: 200, body: '' });
+    await handleUpdate(body);
   } catch (err) {
     console.log(err);
 
