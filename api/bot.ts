@@ -1,4 +1,4 @@
-import { Bot, session } from 'grammy';
+import { Bot, session, webhookCallback } from 'grammy';
 import './database/database';
 import * as dotenv from 'dotenv';
 import {
@@ -180,12 +180,13 @@ bot.on(':new_chat_members', async (ctx) => {
 // Uncomment to develop environment
 // bot.start().catch((err) => console.log(err));
 
+const handleUpdate = webhookCallback(bot, 'http');
 module.exports = async (request: VercelRequest, response: VercelResponse): Promise<any> => {
   try {
     const { body } = request;
 
     response.status(200).json({ statusCode: 200, body: '' });
-    return await bot.handleUpdate(JSON.parse(body)).catch((err: any) => console.log(err));
+    return await handleUpdate(body).catch((err: any) => console.log(err));
   } catch (err) {
     console.log(err);
 
