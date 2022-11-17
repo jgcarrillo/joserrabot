@@ -34,22 +34,40 @@ If you want to start to chat with the bot, simply search in Telegram for _@largu
 
 ### 🚩 Issues
 
-⚠ **I CAN'T DEPLOY THE SERVER RIGHT NOW** ⚠
-
-For more information, there are some interesting links that may resolve the problem in a future or wait for a **better Vercel documentation in GrammY docs**.
-
-- [WerhookCallback functions](https://github.com/grammyjs/grammY/tree/main/src/convenience)
-- [Vercel Deno](https://github.com/vercel-community/deno)
-- [An example with Supabase](https://grammy.dev/hosting/supabase.html). Maybe I cant extrapolate to Vercel.
+[See this example](https://github.com/grammyjs/examples/tree/main/vercel-bot)
 
 ### 🕸️ Vercel Configuration
 
+Create a `vercel.json` file in your root folder and add the following:
+
+```json
+{
+  "functions": {
+    "api/bot.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
+```
+
+This line `export default webhookCallback(bot, 'http');` at the end of the `bot.ts` file do the trick!
+
+In vercel, set the following data:
+
+- Output directory: `build`
+- Install command: `npm install`
+
+Set then the **environment variables**. Later, create the webhook with the following command. **Be sure to use the domain to your application**, I mean, avoid `https://joserrabot-d140bs3z9-jgcarrillo.vercel.app/` with the numbers and create the webhook with `https://joserrabot.vercel.app/`.
+
 - Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
+
+In this case the correct url to create the webhook is `https://joserrabot.vercel.app/api/bot`. Don't forget to add the `/api/bot` at the end of the URL of Vercel.
+
+Other useful commands are:
+
 - Info about webhook: `https://api.telegram.org/bot{bot-key}/getWebhookInfo`
 - Delete webhook: `https://api.telegram.org/bot{bot-key}/deleteWebhook`
-- Set the webhook with Vercel: `curl -X POST https://api.telegram.org/bot{YOUR-BOT-TOKEN}/setWebhook -H "Content-type: application/json" -d '{"url": {"YOUR-DEPLOY-URL"}'`
-
-If some Headers are required, you can pass another with `-H "X-Telegram-Bot-Api-Secret-Token: <bot-token>"`
 
 ### 💛 Contact
 
