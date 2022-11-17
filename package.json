@@ -6,10 +6,10 @@
   "scripts": {
     "server": "node build/bot.js",
     "start": "nodemon build/bot.js",
-    "dev": "nodemon api/bot.ts",
+    "dev": "nodemon ./bot.ts",
     "build": "tsc",
     "clean": "rimraf build",
-    "lint": "eslint --fix api --ext .ts,.json",
+    "lint": "eslint --fix . --ext .ts,.json",
     "format": "prettier --write api"
   },
   "keywords": [],
