@@ -60,7 +60,7 @@ In vercel, set the following data:
 
 Set then the **environment variables**. Later, create the webhook with the following command. **Be sure to use the domain to your application**, I mean, avoid `https://joserrabot-d140bs3z9-jgcarrillo.vercel.app/` with the numbers and create the webhook with `https://joserrabot.vercel.app/`.
 
-- Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url=host-url`
+- Set the webhook: `https://api.telegram.org/bot{bot-key}/setWebhook?url={host-url}`
 
 In this case the correct url to create the webhook is `https://joserrabot.vercel.app/api/bot`. Don't forget to add the `/api/bot` at the end of the URL of Vercel.
 
