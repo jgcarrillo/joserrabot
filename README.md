@@ -5,6 +5,7 @@
 </div>
 
 <div align="center">
+    <br/>
     <img src="./docs/images/usage.gif" />
 </div>
 
