@@ -4,6 +4,10 @@
     <b>Telegram bot made with NodeJS, TypeScript and GrammY to create reminders and check the weather</b>
 </div>
 
+<div align="center">
+    <img src="./docs/images/usage.gif" />
+</div>
+
 ## Table of contents 👇
 
 - [✨ Explanation](#-explanation)
