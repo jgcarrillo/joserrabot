@@ -17,7 +17,7 @@
   "dependencies": {
     "@grammyjs/conversations": "^1.1.0",
     "@grammyjs/menu": "^1.1.2",
-    "axios": "^1.2.1",
+    "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "grammy": "^1.13.0",
     "mongoose": "^6.8.2",
