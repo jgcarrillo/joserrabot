@@ -31,7 +31,7 @@
     "@vercel/node": "^2.8.11",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
-    "eslint-config-standard-with-typescript": "^27.0.1",
+    "eslint-config-standard-with-typescript": "^30.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
