@@ -19,7 +19,7 @@
     "@grammyjs/menu": "^1.2.0",
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
-    "grammy": "^1.16.0",
+    "grammy": "^1.16.1",
     "mongoose": "^7.1.1",
     "rimraf": "^5.0.0",
     "ts-node": "^10.9.1"
